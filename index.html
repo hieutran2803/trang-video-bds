@@ -535,7 +535,7 @@ document.querySelectorAll("#chuong button").forEach(b => b.addEventListener("cli
 </script>
 <script>
 (() => {   // giá + số suất mở bán lấy từ máy chủ; mua ở trang mua/ (thanh toán riêng)
-  const MAY_CHU = (new URLSearchParams(location.search).get("may_chu") || "https://landshot-ma.CHUA_DUA_LEN.workers.dev").replace(/\/$/, "");
+  const MAY_CHU = (new URLSearchParams(location.search).get("may_chu") || "https://landshot-ma.hieuwork280300.workers.dev").replace(/\/$/, "");
   const vnd = n => Number(n).toLocaleString("vi-VN") + "đ";
   fetch(MAY_CHU + "/goi").then(r => r.json()).then(d => {
     const g = d.goi || {}, uu = d.uu_dai || {}, el = document.getElementById("uu-dai");
