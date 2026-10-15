@@ -29,6 +29,7 @@ a { color: inherit; }
 .thanh img { height: 46px; width: auto; display: block; margin: -4px 0 -4px -6px; }
 .thanh .hoi { font-size: 14px; color: rgba(245, 247, 242, .78); text-align: right; }
 .thanh .hoi b { color: var(--trang); font-weight: 600; }
+.thanh .hoi a { text-decoration: none; }
 main { max-width: 1080px; margin: 0 auto; padding: 32px 20px 64px; }
 .dau h1 { font-size: clamp(30px, 4.4vw, 44px); }
 .dau h1 span { color: var(--muc); }
@@ -103,7 +104,7 @@ code { font-family: "IBM Plex Mono", monospace; font-size: .92em; background: #F
 @media (max-width: 520px) {
   main { padding-top: 24px; } .the { padding: 18px; }
   .chon { grid-template-columns: 1fr; }
-  .thanh .hoi span { display: none; }
+  .thanh .hoi span, .thanh .hoi .em { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { .cho .nhip { animation: none; } }
 </style>
@@ -111,7 +112,7 @@ code { font-family: "IBM Plex Mono", monospace; font-size: .92em; background: #F
 <body>
 <header class="thanh"><div class="trong">
   <a href="../" aria-label="Về trang Landshot"><img src="../logo/ngang_trong.svg" alt="Landshot" height="46"></a>
-  <p class="hoi"><span>Cần hỗ trợ? </span><b>hotro@landshot.io.vn</b></p>
+  <p class="hoi"><span>Cần hỗ trợ? </span><a href="https://zalo.me/0353542573" target="_blank" rel="noopener"><b>Zalo 0353 542 573</b></a><span> · </span><a class="em" href="mailto:hotro@landshot.io.vn"><b>hotro@landshot.io.vn</b></a></p>
 </div></header>
 
 <main data-buoc="1">
@@ -190,7 +191,7 @@ code { font-family: "IBM Plex Mono", monospace; font-size: .92em; background: #F
           <li>Mac: mở Terminal trong thư mục đó, chạy <code>bash cai_dat/cai_mac.sh</code>. Windows: bấm đúp <code>cai_dat\cai_windows.bat</code>.</li>
           <li>Cuối bước cài, dán mã kích hoạt ở trên.</li>
         </ol>
-        <p class="goi-y" style="margin-top:14px">Chưa thấy thư sau vài phút? Xem mục Quảng cáo / Spam, hoặc gửi mail tới hotro@landshot.io.vn kèm mã đơn <b id="xong-don"></b>. Xem <a href="../#xem">video hướng dẫn</a> từ đầu đến cuối.</p>
+        <p class="goi-y" style="margin-top:14px">Chưa thấy thư sau vài phút? Xem mục Quảng cáo / Spam, hoặc nhắn <a href="https://zalo.me/0353542573" target="_blank" rel="noopener">Zalo 0353 542 573</a> / gửi mail tới hotro@landshot.io.vn kèm mã đơn <b id="xong-don"></b>. Xem <a href="../#xem">video hướng dẫn</a> từ đầu đến cuối.</p>
       </div>
     </section>
 
@@ -252,7 +253,7 @@ code { font-family: "IBM Plex Mono", monospace; font-size: .92em; background: #F
     if (!don) veTom(goiDangChon());
     return true;
   }).catch(() => {
-    if (!don) { $("nut-tiep").disabled = true; $("bao").textContent = "Thanh toán tự động đang được thiết lập. Muốn đặt trước, gửi mail tới hotro@landshot.io.vn."; }
+    if (!don) { $("nut-tiep").disabled = true; $("bao").textContent = "Thanh toán tự động đang được thiết lập. Muốn đặt trước, nhắn Zalo 0353 542 573 hoặc gửi mail tới hotro@landshot.io.vn."; }
     return false;
   });
 

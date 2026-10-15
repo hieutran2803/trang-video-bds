@@ -183,10 +183,14 @@ details p { margin-top: 10px; max-width: 40em; }
 .sau-mua { margin: 18px 0 8px 20px; }
 .nho { font-size: 14px; color: #6d5552; }
 @media (max-width: 640px) { .ck { grid-template-columns: 1fr; } .ck img { max-width: 270px; } .o-nhap { grid-template-columns: 1fr; } }
-.xe { display: grid; grid-template-columns: repeat(3, 1fr); margin: 0 -40px; border-top: 2px dashed var(--chu); }
+.xe { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0 -40px; border-top: 2px dashed var(--chu); }
 .xe a { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 2px; padding: 18px 8px 22px; min-height: 120px;
   color: var(--chu); text-decoration: none; font-weight: 700; border-right: 2px dashed var(--chu); transition: transform .15s, background .15s; }
 .xe a:last-child { border-right: 0; }
+footer .lien-he { font-size: 15px; color: var(--trang); margin-bottom: 10px; }
+footer .lien-he a { color: var(--ranh); font-weight: 600; text-decoration: none; }
+footer .lien-he a:hover { text-decoration: underline; }
+@media (max-width: 640px) { .xe { grid-template-columns: repeat(2, 1fr); } .xe a:nth-child(2) { border-right: 0; } .xe a:nth-child(-n+2) { border-bottom: 2px dashed var(--chu); } }
 .xe a span { font-family: "Bungee"; color: #D52A1E; font-size: 15px; }
 .xe a:hover, .xe a:focus-visible { transform: translateY(6px) rotate(1.5deg); background: #FFD23F; outline: none; }
 
@@ -436,7 +440,8 @@ footer p { max-width: 70em; }
       </ul>
       <p class="sau-gia">Trả một lần, dùng trên 2 máy. Chuyển khoản QR, mã kích hoạt gửi qua email ngay khi tiền vào.</p>
       <nav class="xe" aria-label="Hỏi và xem">
-        <a href="mailto:hotro@landshot.io.vn"><span>Hỏi</span>Gửi email</a>
+        <a href="https://zalo.me/0353542573" target="_blank" rel="noopener"><span>Zalo</span>0353 542 573</a>
+        <a href="mailto:hotro@landshot.io.vn"><span>Email</span>Gửi email</a>
         <a href="#mau"><span>Xem</span>Video mẫu</a>
         <a href="#cach"><span>Xem</span>Cách làm</a>
       </nav>
@@ -445,6 +450,7 @@ footer p { max-width: 70em; }
 </main>
 
 <footer><div class="trang">
+  <p class="lien-he">Hỗ trợ: Zalo <a href="https://zalo.me/0353542573" target="_blank" rel="noopener">0353 542 573</a> · <a href="mailto:hotro@landshot.io.vn">hotro@landshot.io.vn</a></p>
   <p>Video mẫu dùng cảnh quay CC BY của các kênh BĐS Phan Thiết, Camera Nhà Đất và ảnh Wikimedia Commons (CC BY / CC0); SĐT trong video là số mẫu. Ảnh vệ tinh: Esri, Maxar, Earthstar Geographics. Đường đi: © OpenStreetMap.</p>
 </div></footer>
 <script>
