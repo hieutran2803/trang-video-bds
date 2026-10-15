@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="noindex">
 <title>Thanh toán — Landshot</title>
 <meta name="description" content="Thanh toán bộ skill Landshot bằng chuyển khoản QR. Mã kích hoạt gửi qua email ngay khi tiền vào.">
 <link rel="icon" href="../logo/favicon.svg" type="image/svg+xml">
@@ -86,7 +86,8 @@ code { font-family: "IBM Plex Mono", monospace; font-size: .92em; background: #F
 /* tóm tắt đơn */
 .tom h2 { font-size: 20px; margin-bottom: 14px; }
 .tom-goi { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; font-weight: 700; }
-.tom-goi s { font-weight: 500; color: var(--nhat); font-size: 14px; margin-right: 6px; }
+.tom-goi small { display: block; text-align: right; font-weight: 500; color: var(--nhat); font-size: 13px; }
+.kiem-truoc { font-size: 14px; background: #F3F6F2; border-radius: 10px; padding: 10px 12px; margin-bottom: 14px; }
 .gom { list-style: none; margin: 12px 0 16px; display: grid; gap: 6px; font-size: 14.5px; }
 .gom li { display: flex; gap: 8px; }
 .gom li::before { content: ""; flex: none; width: 14px; height: 8px; margin-top: 7px; border-left: 2.5px solid var(--xanh); border-bottom: 2.5px solid var(--xanh); transform: rotate(-45deg); }
@@ -98,6 +99,7 @@ code { font-family: "IBM Plex Mono", monospace; font-size: .92em; background: #F
 @media (max-width: 860px) {
   .luoi { grid-template-columns: 1fr; }
   .tom { position: static; order: -1; }
+  .tom .gom, .tom .cam { display: none; }               /* điện thoại: tóm tắt gọn, form lên sớm */
   main:not([data-buoc="1"]) .tom { order: 1; }          /* bước 2–3: QR / mã lên trước, tóm tắt xuống dưới */
   .ck { grid-template-columns: 1fr; } .ck img { max-width: 250px; }
 }
@@ -142,9 +144,9 @@ code { font-family: "IBM Plex Mono", monospace; font-size: .92em; background: #F
           <input id="ten" name="ten" type="text" autocomplete="name" required>
         </div>
         <div class="truong">
-          <label for="sdt">Số Zalo <small>(không bắt buộc)</small></label>
+          <label for="sdt">Số Zalo <small>(nên điền)</small></label>
           <input id="sdt" name="sdt" type="tel" autocomplete="tel" inputmode="tel">
-          <p class="goi-y">Để hỗ trợ cài đặt nhanh hơn khi cần.</p>
+          <p class="goi-y">Để bên mình hỗ trợ cài đặt nhanh hơn và báo anh chị nếu email đến trễ.</p>
         </div>
         <div class="truong">
           <label for="ghi_chu">Ghi chú <small>(không bắt buộc)</small></label>
@@ -152,7 +154,9 @@ code { font-family: "IBM Plex Mono", monospace; font-size: .92em; background: #F
         </div>
         <label class="dong-y"><input type="checkbox" name="nhan_tin">Gửi tôi email khi có skill mới và ưu đãi. Huỷ nhận lúc nào cũng được.</label>
         <div>
-          <button type="submit" class="nut" id="nut-tiep">Tiếp tục tới chuyển khoản</button>
+          <p class="kiem-truoc"><b>Trước khi chuyển tiền, kiểm 2 thứ:</b> có máy tính Mac hoặc Windows (không chạy trên điện thoại) · có tài khoản ChatGPT Plus, Claude Pro hoặc Google (Gemini).</p>
+          <button type="submit" class="nut" id="nut-tiep">Lấy mã QR chuyển khoản</button>
+          <a class="nut" id="dat-truoc" href="https://zalo.me/0353542573" target="_blank" rel="noopener" hidden>Đặt trước qua Zalo</a>
           <p class="bao" id="bao" role="status"></p>
           <p class="dieu">Trả một lần. Một mã dùng trên tối đa 2 máy của chính anh chị; không chia sẻ mã cho người khác.</p>
         </div>
@@ -191,7 +195,7 @@ code { font-family: "IBM Plex Mono", monospace; font-size: .92em; background: #F
           <li>Mac: mở Terminal trong thư mục đó, chạy <code>bash cai_dat/cai_mac.sh</code>. Windows: bấm đúp <code>cai_dat\cai_windows.bat</code>.</li>
           <li>Cuối bước cài, dán mã kích hoạt ở trên.</li>
         </ol>
-        <p class="goi-y" style="margin-top:14px">Chưa thấy thư sau vài phút? Xem mục Quảng cáo / Spam, hoặc nhắn <a href="https://zalo.me/0353542573" target="_blank" rel="noopener">Zalo 0353 542 573</a> / gửi mail tới hotro@landshot.io.vn kèm mã đơn <b id="xong-don"></b>. Xem <a href="../#xem">video hướng dẫn</a> từ đầu đến cuối.</p>
+        <p class="goi-y" style="margin-top:14px">Kẹt chỗ nào khi cài, nhắn Zalo kèm mã đơn, bên mình hỗ trợ. Chưa thấy thư sau vài phút? Xem mục Quảng cáo / Spam, hoặc nhắn <a href="https://zalo.me/0353542573" target="_blank" rel="noopener">Zalo 0353 542 573</a> / gửi mail tới hotro@landshot.io.vn kèm mã đơn <b id="xong-don"></b>. Xem <a href="../#xem">video hướng dẫn</a> từ đầu đến cuối.</p>
       </div>
     </section>
 
@@ -233,7 +237,7 @@ code { font-family: "IBM Plex Mono", monospace; font-size: .92em; background: #F
   function veTom(k) {
     const g = gia[k] || gia.day_du;
     $("tieu-goi").textContent = g.ten; $("tom-ten").textContent = "Gói " + g.ten;
-    $("tom-gia").innerHTML = (g.gia_goc && g.gia_hien < g.gia_goc ? `<s>${vnd(g.gia_goc)}</s>` : "") + vnd(g.gia_hien);
+    $("tom-gia").innerHTML = vnd(g.gia_hien) + (g.gia_goc && g.gia_hien < g.gia_goc ? `<small>giá thường ${vnd(g.gia_goc)}</small>` : "");
     $("tom-tong").textContent = vnd(g.gia_hien);
     $("tom-gom").innerHTML = (GOM[k] || []).map(x => `<li>${x}</li>`).join("");
   }
@@ -249,11 +253,11 @@ code { font-family: "IBM Plex Mono", monospace; font-size: .92em; background: #F
     for (const [k, v] of Object.entries(d.goi || {})) gia[k] = v;
     document.querySelectorAll(".chon .gia").forEach(el => { const g = gia[el.dataset.goi]; if (g) el.textContent = vnd(g.gia_hien); });
     const uu = d.uu_dai || {};
-    if (uu.tong && uu.con > 0) { $("uu").hidden = false; $("uu").textContent = `Giá mở bán −50% · còn ${uu.con}/${uu.tong} suất`; }
+    if (uu.tong && uu.con > 0) { $("uu").hidden = false; $("uu").textContent = `Giá mở bán · còn ${uu.con}/${uu.tong} suất`; }
     if (!don) veTom(goiDangChon());
     return true;
   }).catch(() => {
-    if (!don) { $("nut-tiep").disabled = true; $("bao").textContent = "Thanh toán tự động đang được thiết lập. Muốn đặt trước, nhắn Zalo 0353 542 573 hoặc gửi mail tới hotro@landshot.io.vn."; }
+    if (!don) { $("nut-tiep").hidden = true; $("dat-truoc").hidden = false; $("bao").className = "goi-y"; $("bao").textContent = "Thanh toán tự động đang được thiết lập. Đặt trước qua Zalo 0353 542 573 hoặc mail hotro@landshot.io.vn, bên mình giữ giá mở bán cho anh chị."; }
     return false;
   });
 
