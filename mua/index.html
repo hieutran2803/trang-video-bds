@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Thanh toán — Landshot</title>
+<meta name="description" content="Thanh toán bộ skill Landshot bằng chuyển khoản QR. Mã kích hoạt gửi qua email ngay khi tiền vào.">
+<link rel="icon" href="../logo/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../logo/favicon32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../logo/apple.png">
+<meta property="og:title" content="Thanh toán Landshot">
+<meta property="og:image" content="https://landshot.io.vn/logo/og.png">
+<meta name="theme-color" content="#0F1E17">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap&subset=vietnamese" rel="stylesheet">
+<style>
+:root {
+  --dem: #0F1E17; --trang: #F5F7F2; --ranh: #FFC531; --do: #D52A1E; --muc: #B1342A;
+  --nen: #F7F0ED; --vien: #E9D8D3; --chu: #2B211F; --nhat: #6E5F5B; --xanh: #1F7A3A;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
+body { font-family: "Be Vietnam Pro", system-ui, sans-serif; font-size: 16px; line-height: 1.6; color: var(--chu); background: var(--nen); }
+h1, h2 { font-family: "Bricolage Grotesque", "Be Vietnam Pro", sans-serif; font-weight: 800; letter-spacing: -.02em; line-height: 1.15; text-wrap: balance; }
+a { color: inherit; }
+.thanh { background: var(--dem); color: var(--trang); }
+.thanh .trong { max-width: 1080px; margin: 0 auto; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.thanh img { height: 46px; width: auto; display: block; margin: -4px 0 -4px -6px; }
+.thanh .hoi { font-size: 14px; color: rgba(245, 247, 242, .78); text-align: right; }
+.thanh .hoi b { color: var(--trang); font-weight: 600; }
+main { max-width: 1080px; margin: 0 auto; padding: 32px 20px 64px; }
+.dau h1 { font-size: clamp(30px, 4.4vw, 44px); }
+.dau h1 span { color: var(--muc); }
+.buoc { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 16px 0 28px; counter-reset: b; font-size: 15px; color: var(--nhat); }
+.buoc li { counter-increment: b; display: flex; align-items: center; gap: 8px; }
+.buoc li::before { content: counter(b); display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--vien); font-weight: 700; font-size: 13px; background: #fff; }
+.buoc li.dang { color: var(--chu); font-weight: 700; }
+.buoc li.dang::before { background: var(--dem); border-color: var(--dem); color: var(--ranh); }
+.buoc li.xong::before { content: "✓"; background: var(--xanh); border-color: var(--xanh); color: #fff; }
+.luoi { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.the { background: #fff; border: 1px solid var(--vien); border-radius: 14px; padding: 26px; }
+.tom { position: sticky; top: 20px; }
+form { display: grid; gap: 18px; }
+.truong { display: grid; gap: 6px; }
+.truong label, legend { font-weight: 700; font-size: 15px; }
+.truong label small, legend small { font-weight: 500; color: var(--nhat); }
+input[type=email], input[type=text], input[type=tel], textarea { font: inherit; width: 100%; min-width: 0; padding: 11px 13px; border: 1.5px solid var(--vien); border-radius: 9px; background: #fff; color: var(--chu); }
+textarea { min-height: 76px; resize: vertical; }
+input:focus-visible, textarea:focus-visible, button:focus-visible, .chon label:focus-within, .dong-y:focus-within { outline: 3px solid var(--ranh); outline-offset: 2px; }
+.goi-y { font-size: 13.5px; color: var(--nhat); }
+fieldset { border: 0; display: grid; gap: 8px; }
+.chon { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.chon label { display: grid; gap: 2px; padding: 10px 12px; border: 1.5px solid var(--vien); border-radius: 10px; cursor: pointer; }
+.chon label:has(input:checked) { border-color: var(--dem); background: #F3F6F2; box-shadow: inset 0 0 0 1px var(--dem); }
+.chon input { position: absolute; opacity: 0; pointer-events: none; }
+.chon .ten { font-weight: 700; }
+.chon .gia { font-size: 14px; color: var(--nhat); font-variant-numeric: tabular-nums; }
+.dong-y { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; color: var(--chu); cursor: pointer; border-radius: 6px; }
+.dong-y input { margin-top: 4px; width: 17px; height: 17px; accent-color: var(--dem); flex: none; }
+.nut { font: inherit; font-weight: 700; font-size: 17px; color: #fff; background: var(--do); border: 0; border-radius: 10px; padding: 14px 22px; cursor: pointer; text-align: center; text-decoration: none; display: inline-block; }
+.nut:hover { background: #BC2418; }
+.nut:disabled { opacity: .6; cursor: wait; }
+.nut.phu { background: #fff; color: var(--chu); border: 1.5px solid var(--vien); font-weight: 600; font-size: 15px; padding: 9px 14px; }
+.bao { min-height: 1.4em; color: var(--muc); font-weight: 600; font-size: 15px; }
+.dieu { font-size: 13px; color: var(--nhat); }
+/* bước 2 */
+.ck { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 22px; align-items: start; }
+.ck img { width: 100%; height: auto; border: 1px solid var(--vien); border-radius: 10px; }
+dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 7px 14px; font-size: 15px; }
+dt { color: var(--nhat); }
+dd { overflow-wrap: anywhere; }
+dd b { font-variant-numeric: tabular-nums; }
+.chep { font: inherit; font-size: 12.5px; padding: 1px 9px; margin-left: 6px; border: 1.5px solid var(--vien); border-radius: 6px; background: #fff; cursor: pointer; vertical-align: 1px; }
+.cho { margin-top: 16px; padding: 12px 14px; background: #FFF8E1; border-radius: 10px; font-size: 14.5px; display: flex; gap: 10px; align-items: flex-start; }
+.cho .nhip { flex: none; width: 10px; height: 10px; margin-top: 7px; border-radius: 50%; background: #E0A800; box-shadow: 0 0 0 0 rgba(224, 168, 0, .6); animation: nhip 1.6s infinite; }
+.cho p { min-width: 0; }
+@keyframes nhip { 70% { box-shadow: 0 0 0 10px rgba(224, 168, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(224, 168, 0, 0); } }
+.hang-nut { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+/* bước 3 */
+.xong h2 { font-size: 26px; color: var(--xanh); margin-bottom: 6px; }
+.ma { font-family: "IBM Plex Mono", monospace; font-size: 21px; font-weight: 600; padding: 14px; margin: 12px 0 18px; background: #FFF8E1; border: 1.5px dashed #E0A800; border-radius: 10px; text-align: center; overflow-wrap: anywhere; }
+.cac-buoc { margin: 18px 0 0 20px; display: grid; gap: 6px; }
+code { font-family: "IBM Plex Mono", monospace; font-size: .92em; background: #F3EDEA; padding: 1px 5px; border-radius: 4px; }
+/* tóm tắt đơn */
+.tom h2 { font-size: 20px; margin-bottom: 14px; }
+.tom-goi { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; font-weight: 700; }
+.tom-goi s { font-weight: 500; color: var(--nhat); font-size: 14px; margin-right: 6px; }
+.gom { list-style: none; margin: 12px 0 16px; display: grid; gap: 6px; font-size: 14.5px; }
+.gom li { display: flex; gap: 8px; }
+.gom li::before { content: ""; flex: none; width: 14px; height: 8px; margin-top: 7px; border-left: 2.5px solid var(--xanh); border-bottom: 2.5px solid var(--xanh); transform: rotate(-45deg); }
+.uu { display: inline-block; font-size: 13.5px; font-weight: 700; background: var(--ranh); color: var(--dem); padding: 4px 10px; border-radius: 999px; }
+.tong { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; border-top: 1px solid var(--vien); margin-top: 16px; padding-top: 14px; }
+.tong b { font-family: "Bricolage Grotesque", sans-serif; font-size: 30px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.cam { list-style: none; margin-top: 16px; display: grid; gap: 6px; font-size: 13.5px; color: var(--nhat); }
+.cam li::before { content: "— "; }
+@media (max-width: 860px) {
+  .luoi { grid-template-columns: 1fr; }
+  .tom { position: static; order: -1; }
+  main:not([data-buoc="1"]) .tom { order: 1; }          /* bước 2–3: QR / mã lên trước, tóm tắt xuống dưới */
+  .ck { grid-template-columns: 1fr; } .ck img { max-width: 250px; }
+}
+@media (max-width: 520px) {
+  main { padding-top: 24px; } .the { padding: 18px; }
+  .chon { grid-template-columns: 1fr; }
+  .thanh .hoi span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .cho .nhip { animation: none; } }
+</style>
+</head>
+<body>
+<header class="thanh"><div class="trong">
+  <a href="../" aria-label="Về trang Landshot"><img src="../logo/ngang_trong.svg" alt="Landshot" height="46"></a>
+  <p class="hoi"><span>Cần hỗ trợ? </span><b>hotro@landshot.io.vn</b></p>
+</div></header>
+
+<main data-buoc="1">
+  <div class="dau">
+    <h1>Thanh toán gói <span id="tieu-goi">Đầy đủ</span></h1>
+    <ol class="buoc" id="buoc"><li class="dang">Thông tin</li><li>Chuyển khoản QR</li><li>Nhận mã qua email</li></ol>
+  </div>
+
+  <div class="luoi">
+    <section class="the" aria-live="polite">
+      <form id="don" novalidate>
+        <fieldset>
+          <legend>Gói</legend>
+          <div class="chon">
+            <label><input type="radio" name="goi" value="co_ban"><span class="ten">Cơ bản</span><span class="gia" data-goi="co_ban">499.000đ</span></label>
+            <label><input type="radio" name="goi" value="day_du" checked><span class="ten">Đầy đủ</span><span class="gia" data-goi="day_du">999.000đ</span></label>
+            <label><input type="radio" name="goi" value="cai_giup"><span class="ten">Cài giúp</span><span class="gia" data-goi="cai_giup">1.490.000đ</span></label>
+          </div>
+        </fieldset>
+        <div class="truong">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required>
+          <p class="goi-y">Mã kích hoạt, biên nhận và thông báo bản cập nhật gửi tới email này. Kiểm kỹ chính tả.</p>
+        </div>
+        <div class="truong">
+          <label for="ten">Họ tên</label>
+          <input id="ten" name="ten" type="text" autocomplete="name" required>
+        </div>
+        <div class="truong">
+          <label for="sdt">Số Zalo <small>(không bắt buộc)</small></label>
+          <input id="sdt" name="sdt" type="tel" autocomplete="tel" inputmode="tel">
+          <p class="goi-y">Để hỗ trợ cài đặt nhanh hơn khi cần.</p>
+        </div>
+        <div class="truong">
+          <label for="ghi_chu">Ghi chú <small>(không bắt buộc)</small></label>
+          <textarea id="ghi_chu" name="ghi_chu" maxlength="500"></textarea>
+        </div>
+        <label class="dong-y"><input type="checkbox" name="nhan_tin">Gửi tôi email khi có skill mới và ưu đãi. Huỷ nhận lúc nào cũng được.</label>
+        <div>
+          <button type="submit" class="nut" id="nut-tiep">Tiếp tục tới chuyển khoản</button>
+          <p class="bao" id="bao" role="status"></p>
+          <p class="dieu">Trả một lần. Một mã dùng trên tối đa 2 máy của chính anh chị; không chia sẻ mã cho người khác.</p>
+        </div>
+      </form>
+
+      <p class="goi-y" id="dang-mo" hidden>Đang mở đơn…</p>
+      <div id="ck" hidden>
+        <div class="ck">
+          <img id="qr" alt="Mã VietQR để chuyển khoản" width="250" height="296">
+          <div>
+            <dl>
+              <dt>Ngân hàng</dt><dd id="ck-nh"></dd>
+              <dt>Số tài khoản</dt><dd><b id="ck-stk"></b><button type="button" class="chep" data-chep="ck-stk">Chép</button></dd>
+              <dt>Chủ tài khoản</dt><dd id="ck-ten"></dd>
+              <dt>Số tiền</dt><dd><b id="ck-tien"></b></dd>
+              <dt>Nội dung</dt><dd><b id="ck-nd"></b><button type="button" class="chep" data-chep="ck-nd">Chép</button></dd>
+              <dt>Mã đơn</dt><dd id="ck-don"></dd>
+            </dl>
+          </div>
+        </div>
+        <div class="cho"><i class="nhip" aria-hidden="true"></i><p id="cho">Quét mã bằng app ngân hàng, giữ nguyên nội dung chuyển khoản. Tiền vào là trang này tự chuyển sang bước 3 và mã kích hoạt gửi tới <b class="ck-email"></b>, thường dưới một phút.</p></div>
+        <div class="hang-nut">
+          <a class="nut phu" id="link-tt" href="#" target="_blank" rel="noopener" hidden>Mở trang thanh toán payOS</a>
+          <button type="button" class="nut phu" id="lai">Đổi gói hoặc đặt lại</button>
+        </div>
+        <p class="goi-y" style="margin-top:12px">Đã gửi mã QR này vào email. Đóng trang vẫn quay lại được bằng link trong thư.</p>
+      </div>
+
+      <div class="xong" id="xong" hidden>
+        <h2>Đã nhận tiền. Cảm ơn anh chị!</h2>
+        <p>Mã kích hoạt, dùng trên tối đa 2 máy. Mã này cũng đã gửi tới <b class="ck-email"></b>.</p>
+        <p class="ma"><span id="ma-kh"></span><button type="button" class="chep" data-chep="ma-kh">Chép</button></p>
+        <a class="nut" id="tai" href="#">Tải bộ cài</a>
+        <ol class="cac-buoc">
+          <li>Giải nén file vừa tải.</li>
+          <li>Mac: mở Terminal trong thư mục đó, chạy <code>bash cai_dat/cai_mac.sh</code>. Windows: bấm đúp <code>cai_dat\cai_windows.bat</code>.</li>
+          <li>Cuối bước cài, dán mã kích hoạt ở trên.</li>
+        </ol>
+        <p class="goi-y" style="margin-top:14px">Chưa thấy thư sau vài phút? Xem mục Quảng cáo / Spam, hoặc gửi mail tới hotro@landshot.io.vn kèm mã đơn <b id="xong-don"></b>. Xem <a href="../#xem">video hướng dẫn</a> từ đầu đến cuối.</p>
+      </div>
+    </section>
+
+    <aside class="the tom" aria-label="Tóm tắt đơn hàng">
+      <h2>Đơn hàng</h2>
+      <div class="tom-goi"><span id="tom-ten">Gói Đầy đủ</span><span id="tom-gia">999.000đ</span></div>
+      <ul class="gom" id="tom-gom"></ul>
+      <span class="uu" id="uu" hidden></span>
+      <div class="tong"><span>Cần chuyển</span><b id="tom-tong">999.000đ</b></div>
+      <ul class="cam">
+        <li>Trả một lần, không gia hạn</li>
+        <li>Nhận mã ngay khi tiền vào</li>
+        <li>Bản cập nhật của skill đã mua báo qua email</li>
+        <li>Chạy với Claude, ChatGPT hoặc Gemini, trên Mac và Windows</li>
+      </ul>
+    </aside>
+  </div>
+</main>
+
+<script>
+(() => {
+  const thamSo = new URLSearchParams(location.search);
+  const MAY_CHU = (thamSo.get("may_chu") || "https://landshot-ma.CHUA_DUA_LEN.workers.dev").replace(/\/$/, "");
+  const $ = id => document.getElementById(id);
+  const vnd = n => Number(n).toLocaleString("vi-VN") + "đ";
+  const GOM = {
+    co_ban: ["Đi xem đất: cắt clip bạn tự nói, chữ giá to, phụ đề, dải SĐT", "Video từ ảnh tin đăng, giọng đọc AI tiếng Việt"],
+    day_du: ["Đi xem đất: cắt clip bạn tự nói, chữ giá to, phụ đề, dải SĐT", "Video từ ảnh tin đăng, giọng đọc AI tiếng Việt", "Bản đồ tiện ích quanh lô: chợ, trường, bệnh viện", "Vẽ ranh lô theo bảng toạ độ, có số đo cạnh"],
+    cai_giup: ["Cả 4 skill của gói Đầy đủ", "Cài giúp qua UltraViewer", "Làm cùng anh chị video đầu tiên"],
+  };
+  let gia = { co_ban: { ten: "Cơ bản", gia_hien: 499000, gia_goc: 990000 }, day_du: { ten: "Đầy đủ", gia_hien: 999000, gia_goc: 1990000 },
+              cai_giup: { ten: "Cài giúp", gia_hien: 1490000, gia_goc: 2990000 } };
+  const form = $("don");
+  let don = null, hen = null;
+
+  const buoc = n => { document.querySelector("main").dataset.buoc = Math.min(n, 3);
+    [...$("buoc").children].forEach((li, i) => { li.className = i + 1 < n ? "xong" : i + 1 === n ? "dang" : ""; }); };
+  const goiDangChon = () => form.querySelector("input[name=goi]:checked").value;
+  function veTom(k) {
+    const g = gia[k] || gia.day_du;
+    $("tieu-goi").textContent = g.ten; $("tom-ten").textContent = "Gói " + g.ten;
+    $("tom-gia").innerHTML = (g.gia_goc && g.gia_hien < g.gia_goc ? `<s>${vnd(g.gia_goc)}</s>` : "") + vnd(g.gia_hien);
+    $("tom-tong").textContent = vnd(g.gia_hien);
+    $("tom-gom").innerHTML = (GOM[k] || []).map(x => `<li>${x}</li>`).join("");
+  }
+  const luu = d => { try { d ? localStorage.setItem("ls_don", JSON.stringify(d)) : localStorage.removeItem("ls_don"); } catch (e) {} };
+
+  // gói từ ?goi=
+  const goiUrl = thamSo.get("goi");
+  if (goiUrl && GOM[goiUrl]) form.querySelector(`input[value=${goiUrl}]`).checked = true;
+  veTom(goiDangChon());
+  form.addEventListener("change", e => { if (e.target.name === "goi") { veTom(e.target.value); history.replaceState(null, "", "?goi=" + e.target.value); } });
+
+  const coMayChu = fetch(MAY_CHU + "/goi").then(r => r.json()).then(d => {
+    for (const [k, v] of Object.entries(d.goi || {})) gia[k] = v;
+    document.querySelectorAll(".chon .gia").forEach(el => { const g = gia[el.dataset.goi]; if (g) el.textContent = vnd(g.gia_hien); });
+    const uu = d.uu_dai || {};
+    if (uu.tong && uu.con > 0) { $("uu").hidden = false; $("uu").textContent = `Giá mở bán −50% · còn ${uu.con}/${uu.tong} suất`; }
+    if (!don) veTom(goiDangChon());
+    return true;
+  }).catch(() => {
+    if (!don) { $("nut-tiep").disabled = true; $("bao").textContent = "Thanh toán tự động đang được thiết lập. Muốn đặt trước, gửi mail tới hotro@landshot.io.vn."; }
+    return false;
+  });
+
+  function hienCk(d) {
+    form.hidden = true; $("dang-mo").hidden = true; $("ck").hidden = false; $("xong").hidden = true; buoc(2);
+    if (d.goi && GOM[d.goi]) { form.querySelector(`input[value=${d.goi}]`).checked = true; }
+    $("tieu-goi").textContent = d.ten_goi || $("tieu-goi").textContent;
+    $("tom-ten").textContent = "Gói " + (d.ten_goi || ""); $("tom-tong").textContent = vnd(d.so_tien); $("tom-gia").textContent = vnd(d.so_tien);
+    if (d.goi) $("tom-gom").innerHTML = (GOM[d.goi] || []).map(x => `<li>${x}</li>`).join("");
+    $("qr").src = d.qr; $("ck-nh").textContent = d.ngan_hang; $("ck-stk").textContent = d.so_tk; $("ck-ten").textContent = d.ten_tk;
+    $("ck-tien").textContent = vnd(d.so_tien); $("ck-nd").textContent = d.noi_dung; $("ck-don").textContent = don.ma_don;
+    document.querySelectorAll(".ck-email").forEach(el => { el.textContent = d.email || ""; });
+    if (d.link_tt) { $("link-tt").hidden = false; $("link-tt").href = d.link_tt; }
+  }
+  function hienXong(x) {
+    form.hidden = true; $("dang-mo").hidden = true; $("ck").hidden = true; $("xong").hidden = false; buoc(4);
+    [...$("buoc").children].forEach(li => { li.className = "xong"; });
+    $("ma-kh").textContent = x.ma_kich_hoat; $("tai").href = x.tai; $("xong-don").textContent = don.ma_don;
+    document.querySelectorAll(".ck-email").forEach(el => { el.textContent = x.email || ""; });
+    if (x.ten_goi) { $("tieu-goi").textContent = x.ten_goi; $("tom-ten").textContent = "Gói " + x.ten_goi; }
+    $("tom-tong").textContent = vnd(x.so_tien); $("tom-gia").textContent = vnd(x.so_tien);
+  }
+  async function hoi() {
+    clearTimeout(hen);
+    if (!don) return;
+    try {
+      const r = await fetch(`${MAY_CHU}/don/${encodeURIComponent(don.ma_don)}?k=${encodeURIComponent(don.khoa_xem)}`);
+      if (r.status === 404) { luu(null); don = null; form.hidden = false; $("ck").hidden = true; $("dang-mo").hidden = true; buoc(1); return; }
+      const x = await r.json();
+      if (x.trang_thai === "da_tra") { hienXong(x); return; }
+      if ($("ck").hidden && x.qr) hienCk(x);
+      if (x.trang_thai === "thieu") $("cho").textContent = `Đã nhận ${vnd(x.da_nhan)}, còn thiếu ${vnd(x.so_tien - x.da_nhan)}. Chuyển thêm phần thiếu với cùng nội dung.`;
+    } catch (e) { /* mạng chập chờn: hỏi lại sau */ }
+    hen = setTimeout(hoi, 4000);
+  }
+
+  form.addEventListener("submit", async ev => {
+    ev.preventDefault();
+    const f = new FormData(form), email = String(f.get("email")).trim(), ten = String(f.get("ten")).trim(), sdt = String(f.get("sdt")).trim();
+    if (!/^[^\s@<>"]+@[^\s@<>"]+\.[a-z]{2,}$/i.test(email)) { $("bao").textContent = "Email chưa đúng. Mã kích hoạt sẽ gửi tới email này."; $("email").focus(); return; }
+    if (ten.length < 2) { $("bao").textContent = "Điền họ tên."; $("ten").focus(); return; }
+    if (sdt && sdt.replace(/\D/g, "").length < 9) { $("bao").textContent = "Số Zalo chưa đúng (để trống cũng được)."; $("sdt").focus(); return; }
+    const nut = $("nut-tiep"); nut.disabled = true; $("bao").textContent = "Đang tạo mã chuyển khoản…";
+    try {
+      const r = await fetch(MAY_CHU + "/don", { method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({ goi: f.get("goi"), email, ten, sdt, ghi_chu: f.get("ghi_chu"), nhan_tin: f.get("nhan_tin") === "on" }) });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.loi || "Không tạo được đơn.");
+      don = { ma_don: d.ma_don, khoa_xem: d.khoa_xem }; luu(don);
+      history.replaceState(null, "", `?don=${d.ma_don}&k=${d.khoa_xem}`);
+      $("bao").textContent = ""; hienCk(d); hen = setTimeout(hoi, 4000);
+    } catch (e) { $("bao").textContent = (e && e.message) || "Không kết nối được, thử lại sau ít phút."; }
+    nut.disabled = false;
+  });
+  $("lai").addEventListener("click", () => {
+    clearTimeout(hen); luu(null); don = null; history.replaceState(null, "", "?goi=" + goiDangChon());
+    $("ck").hidden = true; form.hidden = false; buoc(1); veTom(goiDangChon());
+  });
+  document.addEventListener("click", ev => {
+    const b = ev.target.closest(".chep"); if (!b) return;
+    const el = $(b.dataset.chep), chu = el.textContent;
+    const xong = () => { b.textContent = "Đã chép"; setTimeout(() => { b.textContent = "Chép"; }, 1500); };
+    (navigator.clipboard ? navigator.clipboard.writeText(chu) : Promise.reject()).then(xong).catch(() => {
+      const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+    });
+  });
+
+  // mở lại đơn: ?don=&k= (link trong thư) hoặc đơn đang dở trong trình duyệt này
+  if (thamSo.get("don") && thamSo.get("k")) don = { ma_don: thamSo.get("don"), khoa_xem: thamSo.get("k") };
+  else { try { don = JSON.parse(localStorage.getItem("ls_don") || "null"); } catch (e) { don = null; } }
+  if (don) { form.hidden = true; $("dang-mo").hidden = false; $("bao").textContent = ""; luu(don); hoi(); }
+})();
+</script>
+</body>
+</html>

@@ -4,8 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Video BĐS cho trợ lý AI</title>
+<title>Landshot — dựng video bất động sản bằng trợ lý AI</title>
 <meta name="description" content="Bộ skill cho trợ lý AI (Claude Code, ChatGPT Codex, Gemini CLI) dựng video bất động sản tiếng Việt: đi xem đất, ảnh tin đăng, bản đồ tiện ích, vẽ ranh theo sổ.">
+<link rel="icon" href="logo/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="logo/favicon32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="logo/apple.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://landshot.io.vn/">
+<meta property="og:title" content="Landshot — dựng video bất động sản bằng trợ lý AI">
+<meta property="og:description" content="Đưa clip quay lô đất. Nhận video bán đất: cắt clip bạn tự nói, vẽ ranh theo số đo, bản đồ tiện ích. Chạy với Claude, ChatGPT hoặc Gemini, trên Mac và Windows.">
+<meta property="og:image" content="https://landshot.io.vn/logo/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0F1E17">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&family=Bungee&display=swap&subset=vietnamese" rel="stylesheet">
 <style>
@@ -37,7 +49,8 @@ h1, h2, h3 { font-family: "Bricolage Grotesque", "Be Vietnam Pro", sans-serif; f
 @keyframes hien { to { opacity: 1; } }
 .thanh { position: absolute; top: 0; left: 0; right: 0; z-index: 3; display: flex; justify-content: space-between; align-items: center; padding: 24px 40px; }
 .thanh .ten { font-family: "Bricolage Grotesque"; font-weight: 800; font-size: 22px; letter-spacing: -.01em; display: flex; gap: 10px; align-items: center; }
-.thanh .ten svg { width: 26px; height: 26px; }
+.thanh .ten img { height: 54px; width: auto; display: block; margin: -7px 0 -7px -6px; }
+@media (max-width: 600px) { .thanh .ten img { height: 46px; } }
 .thanh a { color: var(--trang); text-decoration: none; font-weight: 600; padding: 9px 18px; border: 1.5px solid rgba(245, 247, 242, .5); border-radius: 999px; }
 .hero .chu { position: relative; z-index: 2; padding: 0 40px 76px; max-width: 780px; }
 .hero h1 { font-size: clamp(48px, 6.6vw, 96px); line-height: .96; }
@@ -139,6 +152,16 @@ details p { margin-top: 10px; max-width: 40em; }
 .goi .ten { font-weight: 800; }
 .goi .gia-goi { font-family: "Bungee"; color: #D52A1E; font-size: 19px; font-variant-numeric: tabular-nums; }
 .goi .gia-goi s { font-family: "Be Vietnam Pro", sans-serif; font-size: 14px; font-weight: 500; color: #8a6f6c; margin-right: 4px; }
+.bang-goi { list-style: none; margin: 22px 0 10px; display: grid; gap: 10px; }
+.bang-goi li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 6px 16px; align-items: center; padding: 14px 16px; border: 2px solid var(--giay-sau); }
+.bang-goi li.noi { border-color: #D52A1E; background: #FFF6F4; }
+.bang-goi .ten { display: block; font-weight: 800; font-size: 19px; }
+.bang-goi .mo-ta { display: block; font-size: 15px; color: #6d5552; }
+.bang-goi .gia-goi { font-family: "Bungee"; color: #D52A1E; font-size: 19px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.bang-goi .gia-goi s { font-family: "Be Vietnam Pro", sans-serif; font-size: 14px; font-weight: 500; color: #8a6f6c; margin-right: 4px; }
+.bang-goi .nut-mua { font-size: 15px; padding: 11px 16px; white-space: nowrap; }
+.sau-gia { font-size: 15px; color: #6d5552; margin: 0 0 26px; }
+@media (max-width: 640px) { .bang-goi li { grid-template-columns: minmax(0, 1fr); gap: 8px; } .bang-goi .gia-goi { white-space: normal; } .bang-goi .nut-mua { justify-self: start; } }
 .uu-dai { display: inline-block; margin: 18px 0 0; padding: 8px 14px; background: #FFD23F; font-weight: 700; transform: rotate(-1deg); }
 .goi .mo-ta { grid-column: 2 / 4; font-size: 15px; color: #6d5552; }
 .o-nhap { display: grid; grid-template-columns: max-content 1fr; gap: 10px 14px; align-items: center; margin-bottom: 18px; }
@@ -240,7 +263,7 @@ footer p { max-width: 70em; }
     <polygon class="duong" points="1130,504 1400,500 1520,690 1150,700 1130,504"/>
   </svg>
   <header class="thanh">
-    <div class="ten"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M5 9 L21 4 L26 22 L8 26 Z" fill="none" stroke="#FFC531" stroke-width="2.6" stroke-linejoin="round"/></svg>Video BĐS</div>
+    <div class="ten"><img src="logo/ngang_trong.svg" alt="Landshot" height="54"></div>
     <a href="#mua">Giá và cách mua</a>
   </header>
   <div class="chu">
@@ -405,51 +428,15 @@ footer p { max-width: 70em; }
   <section class="mua" id="mua"><div class="trang">
     <div class="to-roi">
       <h2>Mua trọn bộ</h2>
-      <form class="don" id="don" novalidate>
-        <p class="uu-dai" id="uu-dai">Giá mở bán giảm 50% cho 100 người mua đầu tiên. Còn <b id="con-suat">100</b> suất.</p>
-        <fieldset class="goi">
-          <legend>Chọn gói (trả một lần, dùng trên 2 máy)</legend>
-          <label><input type="radio" name="goi" value="co_ban"><span class="ten">Cơ bản</span><span class="gia-goi" data-goi="co_ban"><s>990.000đ</s> 499.000đ</span><span class="mo-ta">Đi xem đất và video từ ảnh</span></label>
-          <label><input type="radio" name="goi" value="day_du" checked><span class="ten">Đầy đủ</span><span class="gia-goi" data-goi="day_du"><s>1.990.000đ</s> 999.000đ</span><span class="mo-ta">Cả 4 skill: thêm bản đồ tiện ích và vẽ ranh theo sổ</span></label>
-          <label><input type="radio" name="goi" value="cai_giup"><span class="ten">Cài giúp</span><span class="gia-goi" data-goi="cai_giup"><s>2.990.000đ</s> 1.490.000đ</span><span class="mo-ta">Gói Đầy đủ, cài giúp qua UltraViewer và làm cùng video đầu tiên</span></label>
-        </fieldset>
-        <div class="o-nhap">
-          <label for="ten">Họ tên</label><input id="ten" name="ten" autocomplete="name" required>
-          <label for="sdt">Số Zalo</label><input id="sdt" name="sdt" inputmode="tel" autocomplete="tel" required>
-          <label for="email">Email (không bắt buộc)</label><input id="email" name="email" type="email" autocomplete="email">
-        </div>
-        <button type="submit" class="nut-mua">Tạo mã chuyển khoản</button>
-        <p class="bao" id="bao" role="status"></p>
-      </form>
-      <div class="ck" id="ck" hidden>
-        <img id="qr" alt="Mã VietQR chuyển khoản" width="270" height="320">
-        <div>
-          <dl>
-            <dt>Ngân hàng</dt><dd id="ck-nh"></dd>
-            <dt>Số tài khoản</dt><dd><b id="ck-stk"></b> <button type="button" class="chep" data-chep="ck-stk">Chép</button></dd>
-            <dt>Chủ tài khoản</dt><dd id="ck-ten"></dd>
-            <dt>Số tiền</dt><dd><b id="ck-tien"></b></dd>
-            <dt>Nội dung</dt><dd><b id="ck-nd"></b> <button type="button" class="chep" data-chep="ck-nd">Chép</button></dd>
-          </dl>
-          <p class="cho" id="link-tt" hidden><a id="link-tt-a" href="#" target="_blank" rel="noopener">Mở trang thanh toán (chọn app ngân hàng)</a></p>
-          <p class="cho" id="cho">Quét mã bằng app ngân hàng, giữ nguyên nội dung chuyển khoản. Tiền vào là trang này tự hiện mã kích hoạt, thường dưới một phút.</p>
-          <button type="button" class="lai" id="lai">Đổi gói hoặc đặt lại</button>
-        </div>
-      </div>
-      <div class="xong" id="xong" hidden>
-        <p class="xong-tieu">Đã nhận tiền. Cảm ơn anh chị!</p>
-        <p>Mã kích hoạt, dùng trên tối đa 2 máy:</p>
-        <p class="ma"><b id="ma-kh"></b> <button type="button" class="chep" data-chep="ma-kh">Chép</button></p>
-        <a class="nut-mua" id="tai" href="#">Tải bộ cài</a>
-        <ol class="sau-mua">
-          <li>Giải nén file vừa tải.</li>
-          <li>Mac: mở Terminal trong thư mục đó, chạy <code>bash cai_dat/cai_mac.sh</code>. Windows: bấm đúp <code>cai_dat\cai_windows.bat</code>.</li>
-          <li>Cuối bước cài, dán mã kích hoạt ở trên.</li>
-        </ol>
-        <p class="nho">Chụp lại mã này. Lỡ mất mã thì nhắn Zalo kèm số điện thoại đã đặt mua.</p>
-      </div>
+      <p class="uu-dai" id="uu-dai">Giá mở bán giảm 50% cho 100 người mua đầu tiên. Còn <b id="con-suat">100</b> suất.</p>
+      <ul class="bang-goi">
+        <li><div><span class="ten">Cơ bản</span><span class="mo-ta">Đi xem đất và video từ ảnh</span></div><span class="gia-goi" data-goi="co_ban"><s>990.000đ</s> 499.000đ</span><a class="nut-mua" href="mua/?goi=co_ban">Mua gói này</a></li>
+        <li class="noi"><div><span class="ten">Đầy đủ</span><span class="mo-ta">Cả 4 skill: thêm bản đồ tiện ích và vẽ ranh theo sổ</span></div><span class="gia-goi" data-goi="day_du"><s>1.990.000đ</s> 999.000đ</span><a class="nut-mua" href="mua/?goi=day_du">Mua gói này</a></li>
+        <li><div><span class="ten">Cài giúp</span><span class="mo-ta">Gói Đầy đủ, cài giúp qua UltraViewer và làm cùng video đầu tiên</span></div><span class="gia-goi" data-goi="cai_giup"><s>2.990.000đ</s> 1.490.000đ</span><a class="nut-mua" href="mua/?goi=cai_giup">Mua gói này</a></li>
+      </ul>
+      <p class="sau-gia">Trả một lần, dùng trên 2 máy. Chuyển khoản QR, mã kích hoạt gửi qua email ngay khi tiền vào.</p>
       <nav class="xe" aria-label="Hỏi và xem">
-        <a href="#"><span>Hỏi</span>Nhắn Zalo</a>
+        <a href="mailto:hotro@landshot.io.vn"><span>Hỏi</span>Gửi email</a>
         <a href="#mau"><span>Xem</span>Video mẫu</a>
         <a href="#cach"><span>Xem</span>Cách làm</a>
       </nav>
@@ -479,68 +466,19 @@ document.querySelectorAll(".phat").forEach(b => b.addEventListener("click", () =
 document.querySelectorAll("#chuong button").forEach(b => b.addEventListener("click", () => { const v = document.getElementById("hd"); v.currentTime = +b.dataset.t; v.play(); }));
 </script>
 <script>
-(() => {   // mua: tạo đơn → VietQR → hỏi trạng thái 4 s/lần → hiện mã kích hoạt + link tải
-  const thamSo = new URLSearchParams(location.search);
-  const MAY_CHU = (thamSo.get("may_chu") || "https://video-bds-ma.CHUA_DUA_LEN.workers.dev").replace(/\/$/, "");
-  const $ = id => document.getElementById(id);
+(() => {   // giá + số suất mở bán lấy từ máy chủ; mua ở trang mua/ (thanh toán riêng)
+  const MAY_CHU = (new URLSearchParams(location.search).get("may_chu") || "https://landshot-ma.CHUA_DUA_LEN.workers.dev").replace(/\/$/, "");
   const vnd = n => Number(n).toLocaleString("vi-VN") + "đ";
-  const form = $("don");
-  let don = null;
-  try { don = JSON.parse(localStorage.getItem("vbds_don") || "null"); } catch (e) { don = null; }
-  const luu = d => { try { d ? localStorage.setItem("vbds_don", JSON.stringify(d)) : localStorage.removeItem("vbds_don"); } catch (e) {} };
   fetch(MAY_CHU + "/goi").then(r => r.json()).then(d => {
-      const g = d.goi || {}, uu = d.uu_dai || {};
-      document.querySelectorAll(".gia-goi").forEach(el => { const x = g[el.dataset.goi]; if (!x) return;
-        el.innerHTML = (x.gia_goc && x.gia_hien < x.gia_goc ? `<s>${vnd(x.gia_goc)}</s> ` : "") + vnd(x.gia_hien); });
-      if (!uu.tong) $("uu-dai").hidden = true;
-      else if (uu.con > 0) $("con-suat").textContent = uu.con;
-      else $("uu-dai").textContent = "Đã hết suất giá mở bán.";
-    })
-    .catch(() => { if (don) return; form.querySelector("button[type=submit]").disabled = true; $("bao").textContent = "Thanh toán tự động đang được thiết lập. Muốn đặt trước, nhắn Zalo."; });
-  function hienCk(d) {
-    form.hidden = true; $("ck").hidden = false;
-    $("qr").src = d.qr; $("ck-nh").textContent = d.ngan_hang; $("ck-stk").textContent = d.so_tk; $("ck-ten").textContent = d.ten_tk;
-    $("ck-tien").textContent = vnd(d.so_tien); $("ck-nd").textContent = d.noi_dung;
-    if (d.link_tt) { $("link-tt").hidden = false; $("link-tt-a").href = d.link_tt; }
-  }
-  let hen = null;
-  async function hoi() {
-    if (!don) return;
-    try {
-      const r = await fetch(`${MAY_CHU}/don/${encodeURIComponent(don.ma_don)}?k=${encodeURIComponent(don.khoa_xem)}`);
-      if (r.status === 404) { luu(null); don = null; form.hidden = false; $("ck").hidden = true; return; }
-      const x = await r.json();
-      if (x.trang_thai === "da_tra") {
-        $("ck").hidden = true; $("xong").hidden = false; $("ma-kh").textContent = x.ma_kich_hoat; $("tai").href = x.tai; return;
-      }
-      if (x.trang_thai === "thieu") $("cho").textContent = `Đã nhận ${vnd(x.da_nhan)}, còn thiếu ${vnd(x.so_tien - x.da_nhan)}. Chuyển thêm phần thiếu với cùng nội dung.`;
-    } catch (e) { /* mạng chập chờn: hỏi lại sau */ }
-    hen = setTimeout(hoi, 4000);
-  }
-  form.addEventListener("submit", async ev => {
-    ev.preventDefault();
-    const f = new FormData(form), nut = form.querySelector("button[type=submit]");
-    if (String(f.get("ten")).trim().length < 2 || String(f.get("sdt")).replace(/\D/g, "").length < 9) { $("bao").textContent = "Điền họ tên và số Zalo để nhận mã kích hoạt."; return; }
-    nut.disabled = true; $("bao").textContent = "Đang tạo mã chuyển khoản…";
-    try {
-      const r = await fetch(MAY_CHU + "/don", { method: "POST", headers: { "content-type": "application/json" },
-        body: JSON.stringify({ goi: f.get("goi"), ten: f.get("ten"), sdt: f.get("sdt"), email: f.get("email") }) });
-      const d = await r.json();
-      if (!r.ok) throw new Error(d.loi || "Không tạo được đơn.");
-      don = d; luu(d); $("bao").textContent = ""; hienCk(d); clearTimeout(hen); hoi();
-    } catch (e) { $("bao").textContent = (e && e.message) || "Không kết nối được, thử lại sau ít phút."; }
-    nut.disabled = false;
-  });
-  $("lai").addEventListener("click", () => { clearTimeout(hen); luu(null); don = null; $("ck").hidden = true; form.hidden = false; });
-  document.addEventListener("click", ev => {
-    const b = ev.target.closest(".chep"); if (!b) return;
-    const el = $(b.dataset.chep), chu = el.textContent;
-    const xong = () => { b.textContent = "Đã chép"; setTimeout(() => { b.textContent = "Chép"; }, 1500); };
-    (navigator.clipboard ? navigator.clipboard.writeText(chu) : Promise.reject()).then(xong).catch(() => {
-      const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r);
-    });
-  });
-  if (don) { hienCk(don); hoi(); }
+    const g = d.goi || {}, uu = d.uu_dai || {}, el = document.getElementById("uu-dai");
+    document.querySelectorAll(".gia-goi").forEach(x => { const v = g[x.dataset.goi]; if (!v) return;
+      x.innerHTML = (v.gia_goc && v.gia_hien < v.gia_goc ? `<s>${vnd(v.gia_goc)}</s> ` : "") + vnd(v.gia_hien); });
+    if (!uu.tong) el.hidden = true;
+    else if (uu.con > 0) document.getElementById("con-suat").textContent = uu.con;
+    else el.textContent = "Đã hết suất giá mở bán.";
+  }).catch(() => {});
+  const ms = new URLSearchParams(location.search).get("may_chu");
+  if (ms) document.querySelectorAll('a[href^="mua/"]').forEach(a => { a.href += "&may_chu=" + encodeURIComponent(ms); });
 })();
 </script>
 </body>
