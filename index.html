@@ -98,6 +98,21 @@ h1, h2, h3 { font-family: "Bricolage Grotesque", "Be Vietnam Pro", sans-serif; f
 .dau-do span { font-size: 34px; line-height: 1; letter-spacing: -.01em; }
 .dau-do small { display: block; font-family: "IBM Plex Mono"; font-weight: 600; font-size: 13px; margin-top: 8px; letter-spacing: .02em; }
 
+.can-ai { max-width: 52em; margin: -18px 0 34px; padding: 18px 22px; background: #FFF6D6; border: 1.5px solid var(--muc); }
+.can-ai-tieu { font-weight: 700; margin-bottom: 10px; }
+.can-ai table { width: 100%; border-collapse: collapse; font-size: 16px; }
+.can-ai th, .can-ai td { text-align: left; padding: 8px 10px; border-bottom: 1px solid rgba(177, 52, 42, .3); vertical-align: top; }
+.can-ai th { font-size: 14px; color: #6d5552; font-weight: 700; }
+.can-ai td:first-child { font-weight: 700; white-space: nowrap; }
+.can-ai .gia { font-family: "IBM Plex Mono", monospace; color: var(--muc); white-space: nowrap; }
+.tinh-thang { margin-top: 16px; padding-top: 14px; border-top: 2px dashed rgba(177, 52, 42, .35); }
+.tinh-thang dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; margin: 0; font-size: 16px; }
+.tinh-thang dt { color: #6d5552; }
+.tinh-thang dd { margin: 0; min-width: 0; }
+@media (max-width: 640px) { .tinh-thang dl { grid-template-columns: 1fr; gap: 0 0; } .tinh-thang dd { margin-bottom: 8px; } }
+.can-ai-chu { font-size: 14px; color: #6d5552; margin-top: 10px; }
+.so-sanh .kem { display: block; margin-top: 4px; white-space: normal; font-weight: 500; font-size: 14px; color: #6d5552; font-family: "Be Vietnam Pro", sans-serif; }
+@media (max-width: 640px) { .can-ai { padding: 14px; } .can-ai table, .can-ai tbody, .can-ai tr, .can-ai td { display: block; } .can-ai tr:first-child { display: none; } .can-ai tr { padding: 10px 0; border-bottom: 1px solid rgba(177, 52, 42, .3); } .can-ai td { border: 0; padding: 2px 0; white-space: normal; } .can-ai td:first-child { white-space: normal; } .can-ai .gia { white-space: normal; } }
 .so-sanh { width: 100%; border-collapse: collapse; background: #FDF3F1; border: 1.5px solid var(--muc); }
 .so-sanh th, .so-sanh td { padding: 16px 18px; border-bottom: 1px solid rgba(177, 52, 42, .35); text-align: left; vertical-align: top; }
 .so-sanh th { font-family: "Bricolage Grotesque"; font-weight: 800; color: var(--nau); font-size: 19px; }
@@ -116,8 +131,35 @@ details p { margin-top: 10px; max-width: 40em; }
 .to-roi::before { left: 40px; transform: rotate(-6deg); } .to-roi::after { right: 44px; transform: rotate(5deg); }
 .to-roi h2 { font-family: "Bungee"; font-weight: 400; letter-spacing: 0; color: #D52A1E; font-size: clamp(34px, 5vw, 60px); line-height: 1; }
 .to-roi .gia { font-family: "Bungee"; color: var(--chu); font-size: clamp(30px, 4.2vw, 48px); margin: 18px 0 6px; }
-.to-roi .gom { margin: 10px 0 24px; padding-left: 20px; }
-.to-roi .nhap { font-size: 13px; color: #8a6f6c; margin-bottom: 22px; }
+.goi { border: 0; margin: 22px 0 18px; display: grid; gap: 10px; }
+.goi legend { font-weight: 700; margin-bottom: 8px; }
+.goi label { display: grid; grid-template-columns: auto 1fr auto; column-gap: 12px; align-items: baseline; padding: 12px 14px; border: 2px solid var(--giay-sau); cursor: pointer; }
+.goi label:has(input:checked) { border-color: #D52A1E; background: #FFF6F4; }
+.goi input { accent-color: #D52A1E; }
+.goi .ten { font-weight: 800; }
+.goi .gia-goi { font-family: "Bungee"; color: #D52A1E; font-size: 19px; font-variant-numeric: tabular-nums; }
+.goi .gia-goi s { font-family: "Be Vietnam Pro", sans-serif; font-size: 14px; font-weight: 500; color: #8a6f6c; margin-right: 4px; }
+.uu-dai { display: inline-block; margin: 18px 0 0; padding: 8px 14px; background: #FFD23F; font-weight: 700; transform: rotate(-1deg); }
+.goi .mo-ta { grid-column: 2 / 4; font-size: 15px; color: #6d5552; }
+.o-nhap { display: grid; grid-template-columns: max-content 1fr; gap: 10px 14px; align-items: center; margin-bottom: 18px; }
+.o-nhap input { font: inherit; padding: 9px 12px; border: 2px solid var(--giay-sau); min-width: 0; }
+.o-nhap input:focus-visible, .goi label:focus-within { outline: 3px solid #FFC531; outline-offset: 2px; }
+.nut-mua { display: inline-block; font-family: "Bungee"; font-size: 18px; color: #fff; background: #D52A1E; border: 0; padding: 14px 22px; cursor: pointer; text-decoration: none; }
+.nut-mua:disabled { opacity: .6; cursor: wait; }
+.bao { min-height: 1.6em; margin: 10px 0 18px; color: #B1342A; font-weight: 600; }
+.ck { display: grid; grid-template-columns: 270px 1fr; gap: 22px; margin: 22px 0 26px; align-items: start; }
+.ck img { width: 100%; height: auto; border: 1px solid var(--giay-sau); }
+.ck dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 12px; margin: 0 0 12px; }
+.ck dt { color: #6d5552; }
+.ck dd { margin: 0; overflow-wrap: anywhere; }
+.chep, .lai { font: inherit; font-size: 13px; padding: 2px 10px; border: 1.5px solid var(--chu); background: #fff; cursor: pointer; }
+.cho { font-size: 15px; margin-bottom: 10px; }
+.xong { margin: 22px 0 26px; }
+.xong-tieu { font-family: "Bungee"; color: #1f7a3a; font-size: 24px; margin-bottom: 8px; }
+.xong .ma { font-family: "IBM Plex Mono", monospace; font-size: 22px; margin: 6px 0 16px; overflow-wrap: anywhere; }
+.sau-mua { margin: 18px 0 8px 20px; }
+.nho { font-size: 14px; color: #6d5552; }
+@media (max-width: 640px) { .ck { grid-template-columns: 1fr; } .ck img { max-width: 270px; } .o-nhap { grid-template-columns: 1fr; } }
 .xe { display: grid; grid-template-columns: repeat(3, 1fr); margin: 0 -40px; border-top: 2px dashed var(--chu); }
 .xe a { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 2px; padding: 18px 8px 22px; min-height: 120px;
   color: var(--chu); text-decoration: none; font-weight: 700; border-right: 2px dashed var(--chu); transition: transform .15s, background .15s; }
@@ -131,7 +173,8 @@ footer p { max-width: 70em; }
 @media (max-width: 900px) {
   .day-vd { grid-template-columns: repeat(2, 1fr); }
   .buoc { grid-template-columns: 1fr; } .buoc > div { border-right: 0; border-bottom: 1px solid var(--muc); } .buoc > div:last-child { border-bottom: 0; }
-  .ranh-sk, .kiem { grid-template-columns: 1fr; }
+  .ranh-sk, .kiem { grid-template-columns: minmax(0, 1fr); }
+  .so-sanh td.gia { white-space: normal; }
   .dau-do { width: 200px; height: 200px; }
 }
 @media (max-width: 820px) {
@@ -201,8 +244,8 @@ footer p { max-width: 70em; }
     <a href="#mua">Giá và cách mua</a>
   </header>
   <div class="chu">
-    <h1>Đưa clip và sổ đỏ. Nhận video bán đất.</h1>
-    <p class="mo">Bộ skill cho trợ lý AI (Claude, ChatGPT hoặc Gemini) dựng video bất động sản ngay trên máy bạn, Mac hay Windows: cắt clip bạn tự nói, vẽ ranh theo toạ độ trên sổ, dựng bản đồ tiện ích. Ra video dọc đăng được ngay, kèm caption.</p>
+    <h1>Đưa clip quay lô đất. Nhận video bán đất.</h1>
+    <p class="mo">Bộ skill cho trợ lý AI (Claude, ChatGPT hoặc Gemini) dựng video bất động sản ngay trên máy bạn, Mac hay Windows: cắt clip bạn tự nói, vẽ ranh theo số đo lô, dựng bản đồ tiện ích. Ra video dọc đăng được ngay, kèm caption.</p>
     <div class="nut"><a class="chinh" href="#mau">Xem 9 video mẫu</a><a class="phu" href="#cach">Xem cách làm</a></div>
   </div>
   <div class="ket-qua"><div class="khung"><video src="video/ve_ranh.mp4" poster="video/ve_ranh.jpg" autoplay muted loop playsinline></video></div><p>Video ra từ chính lô này</p></div>
@@ -212,9 +255,29 @@ footer p { max-width: 70em; }
   <section class="muc-lon vien-tren" id="cach"><div class="trang">
     <h2>Bạn nói, AI dựng</h2>
     <p class="dan">Không phải mở phần mềm dựng phim. Mọi việc diễn ra trong một cuộc trò chuyện với trợ lý AI trên máy: Claude Code, Codex (gói ChatGPT Plus) hoặc Gemini CLI. Video hướng dẫn 3 phút dưới đây đi từ cài đặt tới bốn kiểu video; dùng Claude, ChatGPT hay Gemini thì cách nói chuyện y hệt.</p>
+    <div class="can-ai">
+      <p class="can-ai-tieu">Cần có sẵn một trong ba trợ lý AI. Phí này trả thẳng cho hãng AI, ngoài giá bộ skill:</p>
+      <table>
+        <tr><th>Trợ lý</th><th>Gói thấp nhất dùng được</th><th>Giá</th></tr>
+        <tr><td>Gemini CLI</td><td>Tài khoản Google thường, có giới hạn số lượt mỗi ngày</td><td class="gia">Miễn phí</td></tr>
+        <tr><td>Codex của ChatGPT</td><td>ChatGPT Plus (gói Go rẻ hơn có Codex nhưng ít lượt, chỉ đủ dùng thử)</td><td class="gia">≈ 525.000đ/tháng</td></tr>
+        <tr><td>Claude Code</td><td>Claude Pro (bản miễn phí không có Claude Code)</td><td class="gia">≈ 527.000đ/tháng</td></tr>
+      </table>
+      <p class="can-ai-chu">Giá quy đổi từ 20 USD, trả bằng thẻ Visa/Mastercard, tham khảo tháng 10/2026. Đang dùng sẵn một trong ba gói này thì không tốn thêm.</p>
+      <div class="tinh-thang">
+        <p class="can-ai-tieu">Một tháng làm được bao nhiêu video? Số đo thật với gói ChatGPT Plus:</p>
+        <dl>
+          <dt>Mỗi video 20–30 giây từ ảnh</dt><dd>tốn khoảng 3% hạn mức tuần của gói</dd>
+          <dt>Một tháng</dt><dd><b>khoảng 120–150 video</b></dd>
+          <dt>Tiền AI mỗi video</dt><dd><b>≈ 4.000đ</b> (525.000đ chia cho khoảng 130 video)</dd>
+          <dt>So với thuê dựng</dt><dd>250.000–300.000đ/video, vẽ ranh 2,5–5,5 triệu/video</dd>
+        </dl>
+        <p class="can-ai-chu">Đo ngày 15/10/2026, Codex làm trọn từ ảnh tới video đã tự kiểm. Video từ clip dài hoặc có vẽ ranh tốn nhiều lượt hơn. Hạn mức do hãng AI quy định và có thể đổi.</p>
+      </div>
+    </div>
     <div class="hd">
       <video id="hd" src="video/huong_dan.mp4" poster="video/huong_dan.jpg" controls playsinline preload="none"></video>
-      <ol class="chuong" id="chuong"><li><button type="button" data-t="0"><span>0:00</span>Bộ skill làm được gì</button></li><li><button type="button" data-t="19"><span>0:19</span>Cần chuẩn bị gì</button></li><li><button type="button" data-t="31"><span>0:31</span>Cài đặt</button></li><li><button type="button" data-t="48"><span>0:48</span>Mở trợ lý AI</button></li><li><button type="button" data-t="60"><span>1:00</span>Đi xem đất</button></li><li><button type="button" data-t="87"><span>1:27</span>Video từ ảnh</button></li><li><button type="button" data-t="105"><span>1:45</span>Bản đồ tiện ích</button></li><li><button type="button" data-t="124"><span>2:04</span>Vẽ ranh theo sổ</button></li><li><button type="button" data-t="145"><span>2:25</span>Tự kiểm và đăng</button></li><li><button type="button" data-t="157"><span>2:37</span>Ba lưu ý pháp lý</button></li><li><button type="button" data-t="171"><span>2:51</span>Bắt đầu thôi</button></li></ol>
+      <ol class="chuong" id="chuong"><li><button type="button" data-t="0"><span>0:00</span>Bộ skill làm được gì</button></li><li><button type="button" data-t="19"><span>0:19</span>Cần chuẩn bị gì</button></li><li><button type="button" data-t="31"><span>0:31</span>Cài đặt</button></li><li><button type="button" data-t="48"><span>0:48</span>Mở trợ lý AI</button></li><li><button type="button" data-t="60"><span>1:00</span>Đi xem đất</button></li><li><button type="button" data-t="91"><span>1:31</span>Video từ ảnh</button></li><li><button type="button" data-t="112"><span>1:52</span>Bản đồ tiện ích</button></li><li><button type="button" data-t="134"><span>2:14</span>Vẽ ranh theo sổ</button></li><li><button type="button" data-t="159"><span>2:39</span>Tự kiểm và đăng</button></li><li><button type="button" data-t="171"><span>2:51</span>Ba lưu ý pháp lý</button></li><li><button type="button" data-t="185"><span>3:05</span>Bắt đầu thôi</button></li></ol>
     </div>
     <div class="buoc">
       <div><span class="so">1</span><h3>Cài một lần</h3><p>Chạy một lệnh. Máy tự cài công cụ dựng, giọng đọc tiếng Việt và bốn skill.</p></div>
@@ -273,7 +336,7 @@ footer p { max-width: 70em; }
   <section class="muc-lon"><div class="trang ranh-sk">
     <div>
       <h2>Vẽ ranh theo đúng toạ độ trên sổ</h2>
-      <p class="dan" style="margin-bottom:0">Chụp sổ hoặc trích đo gửi trợ lý AI. Bảng toạ độ được đọc, đổi sang bản đồ và đối chiếu trước khi vẽ.</p>
+      <p class="dan" style="margin-bottom:0">Chỉ cần bảng toạ độ các góc lô trên sổ hoặc trích đo: chụp riêng phần bảng hoặc gõ tay, không cần gửi trang có tên chủ đất. Toạ độ được đổi sang bản đồ và đối chiếu diện tích trước khi vẽ.</p>
       <ul>
         <li>Đổi toạ độ VN-2000 sang bản đồ, sai lệch dưới 1 mét so với chuẩn EPSG.</li>
         <li>Diện tích tính từ toạ độ lệch sổ quá 3% thì dừng lại hỏi bạn.</li>
@@ -324,7 +387,7 @@ footer p { max-width: 70em; }
       <tr><th>Cách làm</th><th>Chi phí</th><th>Bạn phải làm gì</th></tr>
       <tr><td>Thuê dịch vụ quay + vẽ ranh</td><td class="gia">2,5–5,5 triệu / video</td><td>Chờ vài ngày cho mỗi lô</td></tr>
       <tr><td>Học khoá dựng video BĐS</td><td class="gia">550 nghìn – 1,2 triệu</td><td>Tự ngồi dựng từng video trên CapCut / After Effects</td></tr>
-      <tr class="minh"><td>Bộ skill này</td><td class="gia">[giá] một lần</td><td>Nói với trợ lý AI, nhận video sau vài phút, không giới hạn số video</td></tr>
+      <tr class="minh"><td>Bộ skill này</td><td class="gia">Từ 499.000đ một lần (giá mở bán)<br><span class="kem">+ trợ lý AI: miễn phí (Gemini) đến ≈ 527.000đ/tháng; với ChatGPT Plus tính ra ≈ 4.000đ/video</span></td><td>Nói với trợ lý AI, nhận video sau vài phút, không giới hạn số video</td></tr>
     </table>
   </div></section>
 
@@ -334,24 +397,61 @@ footer p { max-width: 70em; }
     <details><summary>Tôi đang trả tiền ChatGPT hoặc Gemini, dùng được không?</summary><p>Được. Gói ChatGPT Plus dùng Codex (app ChatGPT/Codex trên máy tính hoặc lệnh <code>codex</code>), đăng nhập bằng tài khoản ChatGPT. Gemini dùng Gemini CLI, đăng nhập bằng tài khoản Google; gói Gemini Pro được nhiều lượt hơn. Không dùng được ChatGPT hay Gemini bản chat trên web, vì bản đó không chạy được lệnh dựng video trên máy bạn.</p></details>
     <details><summary>Cần máy gì?</summary><p>Máy Mac (Apple Silicon khuyến nghị) hoặc Windows 10/11 64-bit (đang chạy thử), 8 GB RAM trở lên, trống khoảng 6 GB ổ đĩa. Thêm một trợ lý AI: Claude Code (gói Claude Pro), Codex (gói ChatGPT Plus) hoặc Gemini CLI (tài khoản Google).</p></details>
     <details><summary>Ảnh vệ tinh và bản đồ có tốn tiền không?</summary><p>Không. Mặc định dùng ảnh vệ tinh Esri và dữ liệu OpenStreetMap, có ghi nguồn trên hình. Muốn dùng nguồn khác như Mapbox thì gắn khoá của bạn.</p></details>
-    <details><summary>Nhạc nền có bị bản quyền không?</summary><p>Nhạc của Kevin MacLeod, giấy phép CC BY 4.0, được dùng thương mại. Caption tự chèn câu ghi nguồn bắt buộc.</p></details>
-    <details><summary>Giọng đọc nghe có như người không?</summary><p>Giọng VieNeu chạy ngay trên máy, có hơn 20 giọng nam nữ. Muốn giọng của chính bạn thì đưa một đoạn ghi âm 3–8 giây.</p></details>
+    <details><summary>Thông tin sổ, khách hàng có bị gửi đi đâu không?</summary><p>Dựng video, giọng đọc và chép lời đều chạy trên máy anh chị, không tải lên đâu cả. Phần trò chuyện thì trợ lý AI (Claude, ChatGPT, Gemini) đọc những gì anh chị gõ hoặc gửi cho nó, như mọi lần dùng AI. Vì vậy với sổ, chỉ cần đưa bảng toạ độ góc lô; che hoặc cắt phần tên chủ đất và số giấy tờ.</p></details>
+    <details><summary>Nhạc nền có bị bản quyền không?</summary><p>Không. Nhạc nền đi kèm là nhạc tác giả cho phép dùng miễn phí, kể cả để bán hàng, miễn là ghi tên tác giả. Caption của mỗi video đã tự ghi sẵn dòng đó, anh chị chỉ việc đăng.</p></details>
+    <details><summary>Giọng đọc nghe có như người không?</summary><p>Có hai trường hợp. <b>Clip anh chị tự quay và tự nói:</b> video giữ nguyên giọng thật của anh chị, clip dài bao nhiêu cũng được. <b>Chỉ có ảnh, không quay:</b> máy đọc lời bằng một trong hơn 20 giọng nam nữ có sẵn, chạy ngay trên máy. Muốn máy đọc bằng giọng giống của anh chị thì ghi âm một đoạn mẫu ngắn chừng 3–8 giây; máy học theo giọng đó để đọc các video làm từ ảnh về sau.</p></details>
   </div></section>
 
   <section class="mua" id="mua"><div class="trang">
     <div class="to-roi">
       <h2>Mua trọn bộ</h2>
-      <div class="gia">[GIÁ]</div>
-      <ul class="gom">
-        <li>4 skill, lệnh cài đặt, tài liệu tiếng Việt</li>
-        <li>Giọng đọc tiếng Việt, 4 bản nhạc dùng thương mại, font Be Vietnam Pro</li>
-        <li>Cập nhật skill mới trong [số tháng]</li>
-      </ul>
-      <p class="nhap">Bản nháp: giá, thanh toán và chính sách hoàn tiền chưa chốt.</p>
-      <nav class="xe" aria-label="Mua và hỏi">
-        <a href="#"><span>Mua</span>Thanh toán</a>
+      <form class="don" id="don" novalidate>
+        <p class="uu-dai" id="uu-dai">Giá mở bán giảm 50% cho 100 người mua đầu tiên. Còn <b id="con-suat">100</b> suất.</p>
+        <fieldset class="goi">
+          <legend>Chọn gói (trả một lần, dùng trên 2 máy)</legend>
+          <label><input type="radio" name="goi" value="co_ban"><span class="ten">Cơ bản</span><span class="gia-goi" data-goi="co_ban"><s>990.000đ</s> 499.000đ</span><span class="mo-ta">Đi xem đất và video từ ảnh</span></label>
+          <label><input type="radio" name="goi" value="day_du" checked><span class="ten">Đầy đủ</span><span class="gia-goi" data-goi="day_du"><s>1.990.000đ</s> 999.000đ</span><span class="mo-ta">Cả 4 skill: thêm bản đồ tiện ích và vẽ ranh theo sổ</span></label>
+          <label><input type="radio" name="goi" value="cai_giup"><span class="ten">Cài giúp</span><span class="gia-goi" data-goi="cai_giup"><s>2.990.000đ</s> 1.490.000đ</span><span class="mo-ta">Gói Đầy đủ, cài giúp qua UltraViewer và làm cùng video đầu tiên</span></label>
+        </fieldset>
+        <div class="o-nhap">
+          <label for="ten">Họ tên</label><input id="ten" name="ten" autocomplete="name" required>
+          <label for="sdt">Số Zalo</label><input id="sdt" name="sdt" inputmode="tel" autocomplete="tel" required>
+          <label for="email">Email (không bắt buộc)</label><input id="email" name="email" type="email" autocomplete="email">
+        </div>
+        <button type="submit" class="nut-mua">Tạo mã chuyển khoản</button>
+        <p class="bao" id="bao" role="status"></p>
+      </form>
+      <div class="ck" id="ck" hidden>
+        <img id="qr" alt="Mã VietQR chuyển khoản" width="270" height="320">
+        <div>
+          <dl>
+            <dt>Ngân hàng</dt><dd id="ck-nh"></dd>
+            <dt>Số tài khoản</dt><dd><b id="ck-stk"></b> <button type="button" class="chep" data-chep="ck-stk">Chép</button></dd>
+            <dt>Chủ tài khoản</dt><dd id="ck-ten"></dd>
+            <dt>Số tiền</dt><dd><b id="ck-tien"></b></dd>
+            <dt>Nội dung</dt><dd><b id="ck-nd"></b> <button type="button" class="chep" data-chep="ck-nd">Chép</button></dd>
+          </dl>
+          <p class="cho" id="link-tt" hidden><a id="link-tt-a" href="#" target="_blank" rel="noopener">Mở trang thanh toán (chọn app ngân hàng)</a></p>
+          <p class="cho" id="cho">Quét mã bằng app ngân hàng, giữ nguyên nội dung chuyển khoản. Tiền vào là trang này tự hiện mã kích hoạt, thường dưới một phút.</p>
+          <button type="button" class="lai" id="lai">Đổi gói hoặc đặt lại</button>
+        </div>
+      </div>
+      <div class="xong" id="xong" hidden>
+        <p class="xong-tieu">Đã nhận tiền. Cảm ơn anh chị!</p>
+        <p>Mã kích hoạt, dùng trên tối đa 2 máy:</p>
+        <p class="ma"><b id="ma-kh"></b> <button type="button" class="chep" data-chep="ma-kh">Chép</button></p>
+        <a class="nut-mua" id="tai" href="#">Tải bộ cài</a>
+        <ol class="sau-mua">
+          <li>Giải nén file vừa tải.</li>
+          <li>Mac: mở Terminal trong thư mục đó, chạy <code>bash cai_dat/cai_mac.sh</code>. Windows: bấm đúp <code>cai_dat\cai_windows.bat</code>.</li>
+          <li>Cuối bước cài, dán mã kích hoạt ở trên.</li>
+        </ol>
+        <p class="nho">Chụp lại mã này. Lỡ mất mã thì nhắn Zalo kèm số điện thoại đã đặt mua.</p>
+      </div>
+      <nav class="xe" aria-label="Hỏi và xem">
         <a href="#"><span>Hỏi</span>Nhắn Zalo</a>
         <a href="#mau"><span>Xem</span>Video mẫu</a>
+        <a href="#cach"><span>Xem</span>Cách làm</a>
       </nav>
     </div>
   </div></section>
@@ -377,6 +477,71 @@ document.querySelectorAll(".phat").forEach(b => b.addEventListener("click", () =
 </script>
 <script>
 document.querySelectorAll("#chuong button").forEach(b => b.addEventListener("click", () => { const v = document.getElementById("hd"); v.currentTime = +b.dataset.t; v.play(); }));
+</script>
+<script>
+(() => {   // mua: tạo đơn → VietQR → hỏi trạng thái 4 s/lần → hiện mã kích hoạt + link tải
+  const thamSo = new URLSearchParams(location.search);
+  const MAY_CHU = (thamSo.get("may_chu") || "https://video-bds-ma.CHUA_DUA_LEN.workers.dev").replace(/\/$/, "");
+  const $ = id => document.getElementById(id);
+  const vnd = n => Number(n).toLocaleString("vi-VN") + "đ";
+  const form = $("don");
+  let don = null;
+  try { don = JSON.parse(localStorage.getItem("vbds_don") || "null"); } catch (e) { don = null; }
+  const luu = d => { try { d ? localStorage.setItem("vbds_don", JSON.stringify(d)) : localStorage.removeItem("vbds_don"); } catch (e) {} };
+  fetch(MAY_CHU + "/goi").then(r => r.json()).then(d => {
+      const g = d.goi || {}, uu = d.uu_dai || {};
+      document.querySelectorAll(".gia-goi").forEach(el => { const x = g[el.dataset.goi]; if (!x) return;
+        el.innerHTML = (x.gia_goc && x.gia_hien < x.gia_goc ? `<s>${vnd(x.gia_goc)}</s> ` : "") + vnd(x.gia_hien); });
+      if (!uu.tong) $("uu-dai").hidden = true;
+      else if (uu.con > 0) $("con-suat").textContent = uu.con;
+      else $("uu-dai").textContent = "Đã hết suất giá mở bán.";
+    })
+    .catch(() => { if (don) return; form.querySelector("button[type=submit]").disabled = true; $("bao").textContent = "Thanh toán tự động đang được thiết lập. Muốn đặt trước, nhắn Zalo."; });
+  function hienCk(d) {
+    form.hidden = true; $("ck").hidden = false;
+    $("qr").src = d.qr; $("ck-nh").textContent = d.ngan_hang; $("ck-stk").textContent = d.so_tk; $("ck-ten").textContent = d.ten_tk;
+    $("ck-tien").textContent = vnd(d.so_tien); $("ck-nd").textContent = d.noi_dung;
+    if (d.link_tt) { $("link-tt").hidden = false; $("link-tt-a").href = d.link_tt; }
+  }
+  let hen = null;
+  async function hoi() {
+    if (!don) return;
+    try {
+      const r = await fetch(`${MAY_CHU}/don/${encodeURIComponent(don.ma_don)}?k=${encodeURIComponent(don.khoa_xem)}`);
+      if (r.status === 404) { luu(null); don = null; form.hidden = false; $("ck").hidden = true; return; }
+      const x = await r.json();
+      if (x.trang_thai === "da_tra") {
+        $("ck").hidden = true; $("xong").hidden = false; $("ma-kh").textContent = x.ma_kich_hoat; $("tai").href = x.tai; return;
+      }
+      if (x.trang_thai === "thieu") $("cho").textContent = `Đã nhận ${vnd(x.da_nhan)}, còn thiếu ${vnd(x.so_tien - x.da_nhan)}. Chuyển thêm phần thiếu với cùng nội dung.`;
+    } catch (e) { /* mạng chập chờn: hỏi lại sau */ }
+    hen = setTimeout(hoi, 4000);
+  }
+  form.addEventListener("submit", async ev => {
+    ev.preventDefault();
+    const f = new FormData(form), nut = form.querySelector("button[type=submit]");
+    if (String(f.get("ten")).trim().length < 2 || String(f.get("sdt")).replace(/\D/g, "").length < 9) { $("bao").textContent = "Điền họ tên và số Zalo để nhận mã kích hoạt."; return; }
+    nut.disabled = true; $("bao").textContent = "Đang tạo mã chuyển khoản…";
+    try {
+      const r = await fetch(MAY_CHU + "/don", { method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({ goi: f.get("goi"), ten: f.get("ten"), sdt: f.get("sdt"), email: f.get("email") }) });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.loi || "Không tạo được đơn.");
+      don = d; luu(d); $("bao").textContent = ""; hienCk(d); clearTimeout(hen); hoi();
+    } catch (e) { $("bao").textContent = (e && e.message) || "Không kết nối được, thử lại sau ít phút."; }
+    nut.disabled = false;
+  });
+  $("lai").addEventListener("click", () => { clearTimeout(hen); luu(null); don = null; $("ck").hidden = true; form.hidden = false; });
+  document.addEventListener("click", ev => {
+    const b = ev.target.closest(".chep"); if (!b) return;
+    const el = $(b.dataset.chep), chu = el.textContent;
+    const xong = () => { b.textContent = "Đã chép"; setTimeout(() => { b.textContent = "Chép"; }, 1500); };
+    (navigator.clipboard ? navigator.clipboard.writeText(chu) : Promise.reject()).then(xong).catch(() => {
+      const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+    });
+  });
+  if (don) { hienCk(don); hoi(); }
+})();
 </script>
 </body>
 </html>
