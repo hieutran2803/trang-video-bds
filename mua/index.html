@@ -82,6 +82,9 @@ dd b { font-variant-numeric: tabular-nums; }
 .xong h2 { font-size: 26px; color: var(--xanh); margin-bottom: 6px; }
 .ma { font-family: "IBM Plex Mono", monospace; font-size: 21px; font-weight: 600; padding: 14px; margin: 12px 0 18px; background: #FFF8E1; border: 1.5px dashed #E0A800; border-radius: 10px; text-align: center; overflow-wrap: anywhere; }
 .cac-buoc { margin: 18px 0 0 20px; display: grid; gap: 6px; }
+.xong h3.cach { font-size: 18px; margin: 4px 0 6px; }
+.xong pre { white-space: pre-wrap; overflow-wrap: anywhere; font-family: "IBM Plex Mono", monospace; font-size: 13px; line-height: 1.5; background: #F3EDEA; border-radius: 10px; padding: 12px; margin: 10px 0; }
+.cach-khac { margin-top: 16px; font-size: 15px; } .cach-khac summary { cursor: pointer; font-weight: 600; } .cach-khac p { margin-top: 8px; }
 code { font-family: "IBM Plex Mono", monospace; font-size: .92em; background: #F3EDEA; padding: 1px 5px; border-radius: 4px; }
 /* tóm tắt đơn */
 .tom h2 { font-size: 20px; margin-bottom: 14px; }
@@ -189,12 +192,15 @@ code { font-family: "IBM Plex Mono", monospace; font-size: .92em; background: #F
         <h2>Đã nhận tiền. Cảm ơn anh chị!</h2>
         <p>Mã kích hoạt, dùng trên tối đa 2 máy. Mã này cũng đã gửi tới <b class="ck-email"></b>.</p>
         <p class="ma"><span id="ma-kh"></span><button type="button" class="chep" data-chep="ma-kh">Chép</button></p>
-        <a class="nut" id="tai" href="#">Tải bộ cài</a>
-        <ol class="cac-buoc">
-          <li>Giải nén file vừa tải.</li>
-          <li>Mac: mở Terminal trong thư mục đó, chạy <code>bash cai_dat/cai_mac.sh</code>. Windows: bấm đúp <code>cai_dat\cai_windows.bat</code>.</li>
-          <li>Cuối bước cài, dán mã kích hoạt ở trên.</li>
-        </ol>
+        <h3 class="cach">Cách cài dễ nhất: nhờ trợ lý AI cài giúp</h3>
+        <p class="goi-y">Mở trợ lý AI trên máy tính (Antigravity, Claude hoặc Codex của ChatGPT), mở một thư mục bất kỳ, dán nguyên đoạn dưới đây vào khung chat. Trợ lý tự tải, tự cài, tự kích hoạt mã; lần đầu mất 10–30 phút.</p>
+        <pre class="loi-cai" id="loi-cai"></pre>
+        <button type="button" class="nut" data-chep="loi-cai">Chép đoạn này</button>
+        <details class="cach-khac"><summary>Tự cài bằng một lệnh, hoặc tải file cài</summary>
+          <p><b>Windows</b>: mở PowerShell, dán lệnh:</p><pre id="lenh-win"></pre>
+          <p><b>Mac</b>: mở Terminal, dán lệnh:</p><pre id="lenh-mac"></pre>
+          <p>Hoặc <a id="tai" href="#">tải file cài (.zip)</a>, giải nén, bấm đúp <code>cai_dat\cai_windows.bat</code> (Windows) hoặc <code>Cai dat Landshot.command</code> (Mac).</p>
+        </details>
         <p class="goi-y" style="margin-top:14px">Kẹt chỗ nào khi cài, nhắn Zalo kèm mã đơn, bên mình hỗ trợ. Chưa thấy thư sau vài phút? Xem mục Quảng cáo / Spam, hoặc nhắn <a href="https://zalo.me/0353542573" target="_blank" rel="noopener">Zalo 0353 542 573</a> / gửi mail tới hotro@landshot.io.vn kèm mã đơn <b id="xong-don"></b>. Xem <a href="../#xem">video hướng dẫn</a> từ đầu đến cuối.</p>
       </div>
     </section>
@@ -273,10 +279,23 @@ code { font-family: "IBM Plex Mono", monospace; font-size: .92em; background: #F
     document.querySelectorAll(".ck-email").forEach(el => { el.textContent = d.email || ""; });
     if (d.link_tt) { $("link-tt").hidden = false; $("link-tt").href = d.link_tt; }
   }
+  // đoạn tin nhắn khách dán cho trợ lý AI (Claude Code / Codex / Antigravity) để nó tự cài — cùng nội dung với thư mã kích hoạt
+  const loiCai = ma => `Cài Landshot (bộ skill làm video bất động sản) giúp tôi trên máy này. Mã kích hoạt của tôi: ${ma}
+1. Windows: chạy trong PowerShell (nếu đang ở Git Bash thì bọc trong: powershell -NoProfile -ExecutionPolicy Bypass -Command "..."):
+   $env:BDS_MA="${ma}"; irm https://cai.landshot.io.vn | iex
+   Mac: chạy trong Terminal:
+   curl -fsSL https://cai.landshot.io.vn/mac | BDS_MA=${ma} bash
+2. Lần đầu chạy 10–30 phút (tải Chromium, giọng đọc, model chép lời). Chạy nền và theo dõi tới khi xong, đừng chạy lại giữa chừng.
+3. Xong thì chạy "bds kiem-may" (không thấy lệnh bds thì dùng ~/.local/bin/bds) rồi báo tôi kết quả bằng tiếng Việt, ngắn gọn.
+4. Nhắc tôi mở cuộc trò chuyện MỚI để dùng 4 skill bds-*.
+Đừng hỏi tôi thêm gì, trừ khi lệnh báo lỗi.`;
   function hienXong(x) {
     form.hidden = true; $("dang-mo").hidden = true; $("ck").hidden = true; $("xong").hidden = false; buoc(4);
     [...$("buoc").children].forEach(li => { li.className = "xong"; });
     $("ma-kh").textContent = x.ma_kich_hoat; $("tai").href = x.tai; $("xong-don").textContent = don.ma_don;
+    $("loi-cai").textContent = loiCai(x.ma_kich_hoat);
+    $("lenh-win").textContent = `$env:BDS_MA="${x.ma_kich_hoat}"; irm https://cai.landshot.io.vn | iex`;
+    $("lenh-mac").textContent = `curl -fsSL https://cai.landshot.io.vn/mac | BDS_MA=${x.ma_kich_hoat} bash`;
     document.querySelectorAll(".ck-email").forEach(el => { el.textContent = x.email || ""; });
     if (x.ten_goi) { $("tieu-goi").textContent = x.ten_goi; $("tom-ten").textContent = "Gói " + x.ten_goi; }
     $("tom-tong").textContent = vnd(x.so_tien); $("tom-gia").textContent = vnd(x.so_tien);

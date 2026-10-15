@@ -1,6 +1,6 @@
 #!/bin/bash
 # Cài Landshot trên Mac bằng một lệnh (trợ lý AI chạy giúp được):
-#   curl -fsSL https://landshot.io.vn/cai.sh | BDS_MA=BDS-XXXX-XXXX-XXXX-XXXX bash
+#   curl -fsSL https://cai.landshot.io.vn/mac | BDS_MA=BDS-XXXX-XXXX-XXXX-XXXX bash
 # Tải bộ cài đúng bản của mã → giải nén vào ~/.landshot → cài lệnh bds + skill → kích hoạt mã.
 set -e
 MAY_CHU="https://landshot-ma.hieuwork280300.workers.dev"
