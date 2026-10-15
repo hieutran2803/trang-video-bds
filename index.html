@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Video BĐS cho trợ lý AI</title>
+<meta name="description" content="Bộ skill cho trợ lý AI (Claude Code, ChatGPT Codex, Gemini CLI) dựng video bất động sản tiếng Việt: đi xem đất, ảnh tin đăng, bản đồ tiện ích, vẽ ranh theo sổ.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&family=Bungee&display=swap&subset=vietnamese" rel="stylesheet">
+<style>
+:root {
+  --dem: #0F1E17; --trang: #F5F7F2; --mo: rgba(245, 247, 242, .74); --ranh: #FFC531;
+  --giay: #F8E5E3; --giay-sau: #EFCFCA; --muc: #B1342A; --nau: #4B1714; --chu: #3A2220; --luoi: rgba(177, 52, 42, .085);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: "Be Vietnam Pro", system-ui, sans-serif; font-size: 17px; line-height: 1.6; color: var(--chu); background: var(--giay); }
+a:focus-visible, summary:focus-visible, button:focus-visible { outline: 3px solid var(--ranh); outline-offset: 3px; }
+h1, h2, h3 { font-family: "Bricolage Grotesque", "Be Vietnam Pro", sans-serif; font-weight: 800; letter-spacing: -.03em; }
+.trang { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* ---------- đầu trang: flycam ---------- */
+.hero { position: relative; min-height: 100vh; min-height: 100svh; overflow: hidden; display: flex; align-items: flex-end; background: var(--dem); color: var(--trang); }
+.hero svg.nen { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hero svg.doc { display: none; }
+.hero::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgba(15, 30, 23, .93) 0%, rgba(15, 30, 23, .55) 38%, rgba(15, 30, 23, 0) 62%), linear-gradient(0deg, rgba(15, 30, 23, .88) 0%, rgba(15, 30, 23, 0) 42%); }
+.duong { fill: none; stroke: var(--ranh); stroke-width: 6; stroke-linejoin: round; filter: drop-shadow(0 0 10px rgba(255, 197, 49, .9));
+  stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: ve 2.2s .7s cubic-bezier(.6, 0, .3, 1) forwards; }
+.to-lo { fill: var(--ranh); fill-opacity: 0; animation: phu .7s 2.9s forwards; }
+.nhan-canh { opacity: 0; animation: hien .35s forwards; }
+.nhan-canh rect { fill: var(--ranh); }
+.nhan-canh text { font-family: "Bricolage Grotesque"; font-weight: 800; font-size: 26px; fill: var(--dem); }
+@keyframes ve { to { stroke-dashoffset: 0; } }
+@keyframes phu { to { fill-opacity: .2; } }
+@keyframes hien { to { opacity: 1; } }
+.thanh { position: absolute; top: 0; left: 0; right: 0; z-index: 3; display: flex; justify-content: space-between; align-items: center; padding: 24px 40px; }
+.thanh .ten { font-family: "Bricolage Grotesque"; font-weight: 800; font-size: 22px; letter-spacing: -.01em; display: flex; gap: 10px; align-items: center; }
+.thanh .ten svg { width: 26px; height: 26px; }
+.thanh a { color: var(--trang); text-decoration: none; font-weight: 600; padding: 9px 18px; border: 1.5px solid rgba(245, 247, 242, .5); border-radius: 999px; }
+.hero .chu { position: relative; z-index: 2; padding: 0 40px 76px; max-width: 780px; }
+.hero h1 { font-size: clamp(48px, 6.6vw, 96px); line-height: .96; }
+.hero .mo { color: var(--mo); font-size: 19px; max-width: 34em; margin: 24px 0 32px; }
+.nut { display: flex; gap: 12px; flex-wrap: wrap; }
+.nut a { text-decoration: none; font-weight: 600; padding: 15px 26px; border-radius: 999px; }
+.nut .chinh { background: var(--ranh); color: var(--dem); }
+.nut .phu { color: var(--trang); background: rgba(245, 247, 242, .13); }
+.ket-qua { position: absolute; z-index: 2; right: 40px; bottom: 40px; width: 150px; text-align: right; opacity: 0; animation: hien .6s 3.6s forwards; }
+.ket-qua .khung { aspect-ratio: 9/19; border-radius: 26px; padding: 6px; background: #050a07; box-shadow: 0 24px 60px rgba(0, 0, 0, .55); }
+.ket-qua video { width: 100%; height: 100%; object-fit: cover; border-radius: 20px; display: block; }
+.ket-qua p { font-size: 13px; color: var(--mo); margin-top: 8px; }
+
+/* ---------- thân: giấy sổ ---------- */
+.giay { background-color: var(--giay); background-image: linear-gradient(var(--luoi) 1px, transparent 1px), linear-gradient(90deg, var(--luoi) 1px, transparent 1px); background-size: 28px 28px; }
+.muc-lon { padding: 96px 0; }
+.muc-lon + .muc-lon { padding-top: 24px; }
+.giay h2 { font-size: clamp(34px, 4.2vw, 58px); color: var(--nau); line-height: 1.02; max-width: 15em; }
+.giay .dan { max-width: 40em; margin: 14px 0 36px; font-size: 18px; }
+.vien-tren { border-top: 3px double var(--muc); }
+
+.day-vd { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+.vd video { width: 100%; aspect-ratio: 9/16; display: block; border: 1.5px solid var(--muc); background: #2a1210; }
+.vd h3 { font-size: 24px; color: var(--nau); margin-top: 12px; line-height: 1.1; }
+.vd p { font-size: 15px; margin-top: 4px; }
+
+.buoc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1.5px solid var(--muc); background: #FDF3F1; }
+.buoc > div { padding: 26px 26px 30px; border-right: 1px solid var(--muc); }
+.buoc > div:last-child { border-right: 0; }
+.buoc .so { font-family: "IBM Plex Mono"; font-weight: 600; color: var(--muc); font-size: 15px; }
+.buoc h3 { font-size: 26px; color: var(--nau); margin: 6px 0 10px; }
+.buoc .loi-noi { background: var(--dem); color: var(--trang); border-radius: 16px 16px 16px 4px; padding: 14px 16px; font-size: 15px; margin-top: 12px; }
+
+.ranh-sk { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 56px; align-items: center; }
+.ranh-sk ul { list-style: none; margin-top: 20px; }
+.ranh-sk li { padding: 12px 0 12px 34px; border-bottom: 1px solid rgba(177, 52, 42, .3); position: relative; }
+.ranh-sk li::before { content: ""; position: absolute; left: 0; top: 18px; width: 18px; height: 14px; border: 2.5px solid var(--muc); transform: skewX(-12deg); }
+.to-ve { position: relative; background: #FDF3F1; border: 1.5px solid var(--muc); padding: 16px; box-shadow: 10px 12px 0 var(--giay-sau); }
+.to-ve::before { content: ""; position: absolute; inset: 7px; border: .75px solid var(--muc); pointer-events: none; }
+.to-ve svg { display: block; width: 100%; height: auto; border: 1px solid var(--muc); }
+.to-ve .duong-tinh { fill: none; stroke: var(--ranh); stroke-width: 5; stroke-linejoin: round; filter: drop-shadow(0 0 5px rgba(255, 197, 49, .8)); }
+.to-ve .so-do { font-family: "IBM Plex Mono"; font-weight: 600; font-size: 22px; fill: #fff; paint-order: stroke; stroke: rgba(40, 10, 8, .85); stroke-width: 6px; }
+.cuon { overflow-x: auto; margin-top: 12px; }
+.to-ve table { border-collapse: collapse; font-family: "IBM Plex Mono"; font-size: 13px; color: var(--nau); width: 100%; white-space: nowrap; }
+.to-ve th, .to-ve td { border: .75px solid var(--muc); padding: 5px 8px; text-align: right; }
+.to-ve th { color: var(--muc); text-align: center; font-weight: 600; }
+.to-ve td:first-child { text-align: center; }
+.to-ve .ghi { font-family: "IBM Plex Mono"; font-size: 12px; color: var(--muc); margin-top: 8px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+.kiem { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+.kiem ol { list-style: none; counter-reset: k; }
+.kiem li { display: grid; grid-template-columns: 30px 1fr; gap: 14px; padding: 16px 0; border-bottom: 1px solid rgba(177, 52, 42, .3); }
+.kiem li::before { content: "✓"; color: var(--muc); font-weight: 700; font-size: 20px; }
+.kiem li b { color: var(--nau); }
+.dau-do { justify-self: center; width: 260px; height: 260px; border: 5px solid var(--muc); border-radius: 50%; display: grid; place-items: center; text-align: center;
+  color: var(--muc); transform: rotate(-12deg); position: relative; opacity: .88; font-family: "Bricolage Grotesque"; font-weight: 800; }
+.dau-do::before { content: ""; position: absolute; inset: 10px; border: 2px solid var(--muc); border-radius: 50%; }
+.dau-do span { font-size: 34px; line-height: 1; letter-spacing: -.01em; }
+.dau-do small { display: block; font-family: "IBM Plex Mono"; font-weight: 600; font-size: 13px; margin-top: 8px; letter-spacing: .02em; }
+
+.so-sanh { width: 100%; border-collapse: collapse; background: #FDF3F1; border: 1.5px solid var(--muc); }
+.so-sanh th, .so-sanh td { padding: 16px 18px; border-bottom: 1px solid rgba(177, 52, 42, .35); text-align: left; vertical-align: top; }
+.so-sanh th { font-family: "Bricolage Grotesque"; font-weight: 800; color: var(--nau); font-size: 19px; }
+.so-sanh td.gia { font-family: "IBM Plex Mono"; font-weight: 600; color: var(--muc); white-space: nowrap; }
+.so-sanh tr.minh td { background: rgba(255, 197, 49, .22); }
+.so-sanh tr.minh td:first-child { font-weight: 700; color: var(--nau); }
+
+details { border-bottom: 1px solid rgba(177, 52, 42, .35); padding: 16px 0; max-width: 820px; }
+summary { font-weight: 700; color: var(--nau); cursor: pointer; font-size: 18px; }
+details p { margin-top: 10px; max-width: 40em; }
+
+/* ---------- chỗ mua: tờ rơi ---------- */
+.mua { padding: 40px 0 110px; }
+.to-roi { max-width: 760px; margin: 0 auto; background: #fff; border: 10px solid #D52A1E; padding: 40px 40px 0; transform: rotate(-1deg); box-shadow: 14px 16px 0 rgba(75, 23, 20, .16); position: relative; }
+.to-roi::before, .to-roi::after { content: ""; position: absolute; top: -22px; width: 96px; height: 34px; background: rgba(255, 244, 200, .8); }
+.to-roi::before { left: 40px; transform: rotate(-6deg); } .to-roi::after { right: 44px; transform: rotate(5deg); }
+.to-roi h2 { font-family: "Bungee"; font-weight: 400; letter-spacing: 0; color: #D52A1E; font-size: clamp(34px, 5vw, 60px); line-height: 1; }
+.to-roi .gia { font-family: "Bungee"; color: var(--chu); font-size: clamp(30px, 4.2vw, 48px); margin: 18px 0 6px; }
+.to-roi .gom { margin: 10px 0 24px; padding-left: 20px; }
+.to-roi .nhap { font-size: 13px; color: #8a6f6c; margin-bottom: 22px; }
+.xe { display: grid; grid-template-columns: repeat(3, 1fr); margin: 0 -40px; border-top: 2px dashed var(--chu); }
+.xe a { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 2px; padding: 18px 8px 22px; min-height: 120px;
+  color: var(--chu); text-decoration: none; font-weight: 700; border-right: 2px dashed var(--chu); transition: transform .15s, background .15s; }
+.xe a:last-child { border-right: 0; }
+.xe a span { font-family: "Bungee"; color: #D52A1E; font-size: 15px; }
+.xe a:hover, .xe a:focus-visible { transform: translateY(6px) rotate(1.5deg); background: #FFD23F; outline: none; }
+
+footer { background: var(--dem); color: var(--mo); font-size: 13px; padding: 36px 0 48px; }
+footer p { max-width: 70em; }
+
+@media (max-width: 900px) {
+  .day-vd { grid-template-columns: repeat(2, 1fr); }
+  .buoc { grid-template-columns: 1fr; } .buoc > div { border-right: 0; border-bottom: 1px solid var(--muc); } .buoc > div:last-child { border-bottom: 0; }
+  .ranh-sk, .kiem { grid-template-columns: 1fr; }
+  .dau-do { width: 200px; height: 200px; }
+}
+@media (max-width: 820px) {
+  .hero svg.ngang { display: none; } .hero svg.doc { display: block; }
+  .hero::after { background: linear-gradient(0deg, rgba(15, 30, 23, .96) 0%, rgba(15, 30, 23, .6) 46%, rgba(15, 30, 23, 0) 70%); }
+  .thanh { padding: 18px 20px; } .hero .chu { padding: 0 20px 40px; }
+  .ket-qua { display: none; }   /* trên điện thoại video này có ngay ở mục dưới; tránh đè tiêu đề */
+  .muc-lon { padding: 64px 0; }
+  .to-roi { padding: 30px 22px 0; } .xe { margin: 0 -22px; }
+  .so-sanh, .so-sanh tbody, .so-sanh tr, .so-sanh td { display: block; width: 100%; }
+  .so-sanh tr:first-child { display: none; }
+  .so-sanh tr { padding: 14px 16px; border-bottom: 1px solid rgba(177, 52, 42, .35); }
+  .so-sanh td { border: 0; padding: 2px 0; }
+  .so-sanh td:first-child { font-weight: 700; color: var(--nau); font-size: 18px; }
+  .so-sanh tr.minh td { background: none; } .so-sanh tr.minh { background: rgba(255, 197, 49, .22); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .duong { animation: none; stroke-dashoffset: 0; } .to-lo { animation: none; fill-opacity: .2; } .nhan-canh, .ket-qua { animation: none; opacity: 1; }
+  .xe a { transition: none; }
+}
+
+.qt { width: 100%; aspect-ratio: 16/9; display: block; border: 1.5px solid var(--muc); background: var(--dem); }
+.cap { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; max-width: 760px; margin-bottom: 44px; position: relative; }
+.cap.ngang { grid-template-columns: 1.6fr 1fr; max-width: 980px; align-items: center; }
+.cap figure video { width: 100%; aspect-ratio: 9/16; display: block; border: 1.5px solid var(--muc); background: #2a1210; }
+.cap.ngang figure:first-child video { aspect-ratio: 16/9; }
+.cap figcaption { font-size: 15px; margin-top: 8px; color: var(--nau); font-weight: 600; }
+.phat { grid-column: 1 / -1; justify-self: start; font: inherit; font-weight: 700; cursor: pointer; border: 0; padding: 13px 24px; border-radius: 4px;
+  background: var(--muc); color: #FFF4F2; box-shadow: 4px 4px 0 var(--nau); }
+.phat[aria-pressed="true"] { background: var(--nau); }
+.loc { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+.loc button { font: inherit; font-weight: 600; font-size: 15px; cursor: pointer; padding: 8px 16px; border-radius: 999px; border: 1.5px solid var(--muc); background: transparent; color: var(--muc); }
+.loc button[aria-pressed="true"] { background: var(--muc); color: #FFF4F2; }
+.vd[hidden] { display: none; }
+@media (max-width: 700px) { .cap.ngang { grid-template-columns: 1fr; } }
+
+.hd { display: grid; grid-template-columns: minmax(0, 2.4fr) minmax(0, 1fr); gap: 26px; margin-bottom: 40px; align-items: start; }
+.hd video { width: 100%; aspect-ratio: 16/9; display: block; border: 1.5px solid var(--muc); background: var(--dem); }
+.chuong { list-style: none; border-top: 1.5px solid var(--muc); }
+.chuong li { border-bottom: 1px solid rgba(177, 52, 42, .3); }
+.chuong button { width: 100%; text-align: left; font: inherit; font-size: 16px; color: var(--chu); background: none; border: 0; padding: 9px 4px; cursor: pointer; display: flex; gap: 12px; }
+.chuong button span { font-family: "IBM Plex Mono"; color: var(--muc); min-width: 3.2em; }
+.chuong button:hover { background: rgba(255, 197, 49, .2); }
+@media (max-width: 900px) { .hd { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <svg class="nen ngang" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Ranh lô đất tự vẽ trên ảnh flycam">
+    <image href="mau/assets/aerial.jpg" width="1920" height="1080"/>
+    <polygon class="to-lo" points="1130,504 1400,500 1520,690 1150,700"/>
+    <polygon class="duong" points="1130,504 1400,500 1520,690 1150,700 1130,504"/>
+    <g class="nhan-canh" style="animation-delay:3.0s"><rect x="1222" y="462" width="96" height="36" rx="8"/><text x="1270" y="488" text-anchor="middle">10 m</text></g>
+    <g class="nhan-canh" style="animation-delay:3.15s"><rect x="1478" y="572" width="96" height="36" rx="8"/><text x="1526" y="598" text-anchor="middle">20 m</text></g>
+    <g class="nhan-canh" style="animation-delay:3.3s"><rect x="1288" y="708" width="96" height="36" rx="8"/><text x="1336" y="734" text-anchor="middle">10 m</text></g>
+    <g class="nhan-canh" style="animation-delay:3.45s"><rect x="1042" y="584" width="96" height="36" rx="8"/><text x="1090" y="610" text-anchor="middle">20 m</text></g>
+  </svg>
+  <svg class="nen doc" viewBox="1000 260 640 1140" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
+    <image href="mau/assets/aerial.jpg" width="1920" height="1080"/>
+    <polygon class="to-lo" points="1130,504 1400,500 1520,690 1150,700"/>
+    <polygon class="duong" points="1130,504 1400,500 1520,690 1150,700 1130,504"/>
+  </svg>
+  <header class="thanh">
+    <div class="ten"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M5 9 L21 4 L26 22 L8 26 Z" fill="none" stroke="#FFC531" stroke-width="2.6" stroke-linejoin="round"/></svg>Video BĐS</div>
+    <a href="#mua">Giá và cách mua</a>
+  </header>
+  <div class="chu">
+    <h1>Đưa clip và sổ đỏ. Nhận video bán đất.</h1>
+    <p class="mo">Bộ skill cho trợ lý AI (Claude, ChatGPT hoặc Gemini) dựng video bất động sản ngay trên máy bạn, Mac hay Windows: cắt clip bạn tự nói, vẽ ranh theo toạ độ trên sổ, dựng bản đồ tiện ích. Ra video dọc đăng được ngay, kèm caption.</p>
+    <div class="nut"><a class="chinh" href="#mau">Xem 9 video mẫu</a><a class="phu" href="#cach">Xem cách làm</a></div>
+  </div>
+  <div class="ket-qua"><div class="khung"><video src="video/ve_ranh.mp4" poster="video/ve_ranh.jpg" autoplay muted loop playsinline></video></div><p>Video ra từ chính lô này</p></div>
+</section>
+
+<main class="giay">
+  <section class="muc-lon vien-tren" id="cach"><div class="trang">
+    <h2>Bạn nói, AI dựng</h2>
+    <p class="dan">Không phải mở phần mềm dựng phim. Mọi việc diễn ra trong một cuộc trò chuyện với trợ lý AI trên máy: Claude Code, Codex (gói ChatGPT Plus) hoặc Gemini CLI. Video hướng dẫn 3 phút dưới đây đi từ cài đặt tới bốn kiểu video; dùng Claude, ChatGPT hay Gemini thì cách nói chuyện y hệt.</p>
+    <div class="hd">
+      <video id="hd" src="video/huong_dan.mp4" poster="video/huong_dan.jpg" controls playsinline preload="none"></video>
+      <ol class="chuong" id="chuong"><li><button type="button" data-t="0"><span>0:00</span>Bộ skill làm được gì</button></li><li><button type="button" data-t="19"><span>0:19</span>Cần chuẩn bị gì</button></li><li><button type="button" data-t="31"><span>0:31</span>Cài đặt</button></li><li><button type="button" data-t="48"><span>0:48</span>Mở trợ lý AI</button></li><li><button type="button" data-t="60"><span>1:00</span>Đi xem đất</button></li><li><button type="button" data-t="87"><span>1:27</span>Video từ ảnh</button></li><li><button type="button" data-t="105"><span>1:45</span>Bản đồ tiện ích</button></li><li><button type="button" data-t="124"><span>2:04</span>Vẽ ranh theo sổ</button></li><li><button type="button" data-t="145"><span>2:25</span>Tự kiểm và đăng</button></li><li><button type="button" data-t="157"><span>2:37</span>Ba lưu ý pháp lý</button></li><li><button type="button" data-t="171"><span>2:51</span>Bắt đầu thôi</button></li></ol>
+    </div>
+    <div class="buoc">
+      <div><span class="so">1</span><h3>Cài một lần</h3><p>Chạy một lệnh. Máy tự cài công cụ dựng, giọng đọc tiếng Việt và bốn skill.</p></div>
+      <div><span class="so">2</span><h3>Nói với trợ lý AI</h3><p>Đưa clip hoặc ảnh, kể vài thông tin về lô.</p><div class="loi-noi">Làm video từ clip này. Lô 5x24 m, sổ hồng riêng, giá 1,85 tỷ, SĐT 0909…</div></div>
+      <div><span class="so">3</span><h3>Nhận video</h3><p>Trợ lý hỏi thêm thứ còn thiếu, đưa 2–3 câu mở đầu cho bạn chọn, dựng rồi tự kiểm. Bạn nhận file video dọc và caption để đăng.</p></div>
+    </div>
+  </div></section>
+
+  <section class="muc-lon" id="xem"><div class="trang">
+    <h2>Xem trợ lý AI làm một video từ đầu đến cuối</h2>
+    <p class="dan">Một câu yêu cầu, trợ lý AI chép lời, sửa chữ nghe sai, bỏ câu chưa kiểm chứng, đưa câu mở đầu cho bạn chọn, dựng và tự kiểm. Tái hiện đúng các lệnh và kết quả của một lần chạy thật, tua nhanh.</p>
+    <video class="qt" src="video/quy_trinh.mp4" poster="video/quy_trinh.jpg" controls playsinline preload="none"></video>
+  </div></section>
+
+  <section class="muc-lon" id="truoc-sau"><div class="trang">
+    <h2>Trước và sau</h2>
+    <p class="dan">Bên trái là cảnh quay gốc, bên phải là video bộ skill dựng ra. Bấm phát để xem hai bên chạy cùng lúc.</p>
+    <div class="cap">
+      <figure><video data-nhom="a" src="video/tho_di_xem.mp4" poster="video/tho_di_xem.jpg" playsinline preload="none"></video><figcaption>Clip điện thoại môi giới tự quay</figcaption></figure>
+      <figure><video data-nhom="a" src="video/sau_di_xem.mp4" poster="video/sau_di_xem.jpg" playsinline preload="none"></video><figcaption>Sau khi dựng: câu mở đầu, giá, phụ đề, SĐT</figcaption></figure>
+      <button class="phat" data-nhom="a" type="button">Phát cả hai</button>
+    </div>
+    <div class="cap ngang">
+      <figure><video data-nhom="b" src="video/tho_ve_ranh.mp4" poster="video/tho_ve_ranh.jpg" playsinline preload="none" muted></video><figcaption>Flycam thô</figcaption></figure>
+      <figure><video data-nhom="b" src="video/ve_ranh.mp4" poster="video/ve_ranh.jpg" playsinline preload="none"></video><figcaption>Sau khi dựng: dừng hình vẽ ranh theo sổ, ranh bám theo</figcaption></figure>
+      <button class="phat" data-nhom="b" type="button">Phát cả hai</button>
+    </div>
+  </div></section>
+
+  <section class="muc-lon" id="mau"><div class="trang">
+    <h2>Video mẫu theo loại bất động sản</h2>
+    <p class="dan">Tất cả dựng bằng bộ skill, từ cảnh quay CC BY và ảnh Wikimedia (có ghi nguồn). SĐT và thông tin là bản minh hoạ.</p>
+    <div class="loc" role="group" aria-label="Lọc theo loại">
+      <button type="button" aria-pressed="true" data-loai="tat">Tất cả</button>
+      <button type="button" aria-pressed="false" data-loai="dat_nen">Đất nền</button>
+      <button type="button" aria-pressed="false" data-loai="dat_vuon">Đất vườn</button>
+      <button type="button" aria-pressed="false" data-loai="nha_pho">Nhà phố</button>
+      <button type="button" aria-pressed="false" data-loai="can_ho">Căn hộ</button>
+      <button type="button" aria-pressed="false" data-loai="biet_thu">Biệt thự</button>
+      <button type="button" aria-pressed="false" data-loai="du_an">Dự án</button>
+    </div>
+    <div class="day-vd">
+      <div class="vd" data-loai="dat_nen"><video src="video/di_xem.mp4" poster="video/di_xem.jpg" controls playsinline preload="none"></video><h3>Đất mặt tiền ĐT832</h3><p>Đi xem đất · clip môi giới tự nói</p></div>
+      <div class="vd" data-loai="dat_vuon"><video src="video/di_xem_vuon.mp4" poster="video/di_xem_vuon.jpg" controls playsinline preload="none"></video><h3>Đất vườn Thủ Thừa</h3><p>Đi xem đất · có cảnh flycam</p></div>
+      <div class="vd" data-loai="nha_pho"><video src="video/anh_tin_dang.mp4" poster="video/anh_tin_dang.jpg" controls playsinline preload="none"></video><h3>Nhà phố 4 tầng</h3><p>Từ ảnh tin đăng · giọng đọc AI</p></div>
+      <div class="vd" data-loai="can_ho"><video src="video/can_ho.mp4" poster="video/can_ho.jpg" controls playsinline preload="none"></video><h3>Căn hộ view hồ</h3><p>Từ ảnh tin đăng · giọng đọc AI</p></div>
+      <div class="vd" data-loai="biet_thu"><video src="video/biet_thu.mp4" poster="video/biet_thu.jpg" controls playsinline preload="none"></video><h3>Biệt thự hồ bơi</h3><p>Từ ảnh tin đăng · giọng nam</p></div>
+      <div class="vd" data-loai="dat_vuon"><video src="video/ban_do.mp4" poster="video/ban_do.jpg" controls playsinline preload="none"></video><h3>Đất vườn Đức Hòa</h3><p>Bản đồ tiện ích · ranh trên vệ tinh</p></div>
+      <div class="vd" data-loai="dat_nen"><video src="video/ve_ranh.mp4" poster="video/ve_ranh.jpg" controls playsinline preload="none"></video><h3>Đất nền Bình Thuận</h3><p>Vẽ ranh theo sổ trên flycam</p></div>
+      <div class="vd" data-loai="dat_vuon"><video src="video/ranh_da_lat.mp4" poster="video/ranh_da_lat.jpg" controls playsinline preload="none"></video><h3>Đất vườn đồi Đà Lạt</h3><p>Vẽ ranh lô đất hình dạng không đều</p></div>
+      <div class="vd" data-loai="du_an"><video src="video/ranh_da_nang.mp4" poster="video/ranh_da_nang.jpg" controls playsinline preload="none"></video><h3>Dự án đất nền Đà Nẵng</h3><p>Khoanh lốc đất trên dự án phân lô</p></div>
+    </div>
+  </div></section>
+
+
+  <section class="muc-lon"><div class="trang ranh-sk">
+    <div>
+      <h2>Vẽ ranh theo đúng toạ độ trên sổ</h2>
+      <p class="dan" style="margin-bottom:0">Chụp sổ hoặc trích đo gửi trợ lý AI. Bảng toạ độ được đọc, đổi sang bản đồ và đối chiếu trước khi vẽ.</p>
+      <ul>
+        <li>Đổi toạ độ VN-2000 sang bản đồ, sai lệch dưới 1 mét so với chuẩn EPSG.</li>
+        <li>Diện tích tính từ toạ độ lệch sổ quá 3% thì dừng lại hỏi bạn.</li>
+        <li>Trên flycam: dừng hình vẽ ranh, ghi số đo từng cạnh, rồi ranh bám theo khi máy bay.</li>
+        <li>Lô từ khoảng 500 m² thì vẽ được cả trên ảnh vệ tinh.</li>
+      </ul>
+    </div>
+    <div class="to-ve">
+      <svg viewBox="860 300 940 600" role="img" aria-label="Ranh lô 10 x 20 mét vẽ trên ảnh flycam, kèm số đo cạnh">
+        <image href="mau/assets/aerial.jpg" width="1920" height="1080"/>
+        <polygon points="1130,504 1400,500 1520,690 1150,700" fill="#FFC531" fill-opacity=".2"/>
+        <polygon class="duong-tinh" points="1130,504 1400,500 1520,690 1150,700 1130,504"/>
+        <text class="so-do" x="1265" y="488" text-anchor="middle">10,00 m</text>
+        <text class="so-do" x="1490" y="590">20,00 m</text>
+        <text class="so-do" x="1335" y="745" text-anchor="middle">10,00 m</text>
+        <text class="so-do" x="1010" y="610">20,00 m</text>
+      </svg>
+      <div class="cuon"><table>
+        <tr><th>Điểm</th><th>X (m)</th><th>Y (m)</th><th>Cạnh (m)</th></tr>
+        <tr><td>1</td><td>1 203 512,35</td><td>569 021,10</td><td>10,00</td></tr>
+        <tr><td>2</td><td>1 203 512,80</td><td>569 031,09</td><td>20,00</td></tr>
+        <tr><td>3</td><td>1 203 492,81</td><td>569 031,62</td><td>10,00</td></tr>
+        <tr><td>4</td><td>1 203 492,36</td><td>569 021,63</td><td>20,00</td></tr>
+      </table></div>
+      <div class="ghi"><span>VN-2000, kinh tuyến trục 105°45'</span><span>Diện tích 200,0 m² · ranh minh hoạ</span></div>
+    </div>
+  </div></section>
+
+  <section class="muc-lon"><div class="trang kiem">
+    <div>
+      <h2>Không bịa một con số</h2>
+      <p class="dan">Môi giới đưa thông tin sai bị phạt 120–160 triệu (NĐ 339/2026). Bộ skill tự kiểm trước khi giao video.</p>
+      <ol>
+        <li><span><b>Giá và diện tích trên hình phải khớp phiếu thông tin bạn đưa.</b> Lệch là không dựng.</span></li>
+        <li><span><b>Có chỗ cho số chứng chỉ hành nghề</b> trên dải liên hệ và trong caption.</span></li>
+        <li><span><b>Ranh luôn ghi "minh hoạ – đối chiếu sổ và hiện trạng".</b></span></li>
+        <li><span><b>Bản đồ và nhạc luôn ghi nguồn.</b> Khoảng cách, số phút có dấu ≈.</span></li>
+        <li><span><b>Câu thổi phồng bị bỏ</b> như "rẻ nhất khu vực", "cam kết sinh lời".</span></li>
+      </ol>
+    </div>
+    <div class="dau-do" aria-hidden="true"><div><span>Đã kiểm<br>trước khi giao</span><small>bds soi</small></div></div>
+  </div></section>
+
+  <section class="muc-lon"><div class="trang">
+    <h2>Rẻ hơn thuê, nhanh hơn học</h2>
+    <p class="dan">Giá tham khảo các lựa chọn môi giới đang dùng (tháng 10/2026).</p>
+    <table class="so-sanh">
+      <tr><th>Cách làm</th><th>Chi phí</th><th>Bạn phải làm gì</th></tr>
+      <tr><td>Thuê dịch vụ quay + vẽ ranh</td><td class="gia">2,5–5,5 triệu / video</td><td>Chờ vài ngày cho mỗi lô</td></tr>
+      <tr><td>Học khoá dựng video BĐS</td><td class="gia">550 nghìn – 1,2 triệu</td><td>Tự ngồi dựng từng video trên CapCut / After Effects</td></tr>
+      <tr class="minh"><td>Bộ skill này</td><td class="gia">[giá] một lần</td><td>Nói với trợ lý AI, nhận video sau vài phút, không giới hạn số video</td></tr>
+    </table>
+  </div></section>
+
+  <section class="muc-lon"><div class="trang">
+    <h2>Hỏi nhanh</h2>
+    <details><summary>Tôi không rành máy tính, dùng được không?</summary><p>Được, nếu bạn đã dùng một trợ lý AI chạy trên máy (Claude Code, Codex hoặc Gemini CLI). Bạn chỉ nói chuyện bằng tiếng Việt, lệnh và thông số trợ lý tự lo.</p></details>
+    <details><summary>Tôi đang trả tiền ChatGPT hoặc Gemini, dùng được không?</summary><p>Được. Gói ChatGPT Plus dùng Codex (app ChatGPT/Codex trên máy tính hoặc lệnh <code>codex</code>), đăng nhập bằng tài khoản ChatGPT. Gemini dùng Gemini CLI, đăng nhập bằng tài khoản Google; gói Gemini Pro được nhiều lượt hơn. Không dùng được ChatGPT hay Gemini bản chat trên web, vì bản đó không chạy được lệnh dựng video trên máy bạn.</p></details>
+    <details><summary>Cần máy gì?</summary><p>Máy Mac (Apple Silicon khuyến nghị) hoặc Windows 10/11 64-bit (đang chạy thử), 8 GB RAM trở lên, trống khoảng 6 GB ổ đĩa. Thêm một trợ lý AI: Claude Code (gói Claude Pro), Codex (gói ChatGPT Plus) hoặc Gemini CLI (tài khoản Google).</p></details>
+    <details><summary>Ảnh vệ tinh và bản đồ có tốn tiền không?</summary><p>Không. Mặc định dùng ảnh vệ tinh Esri và dữ liệu OpenStreetMap, có ghi nguồn trên hình. Muốn dùng nguồn khác như Mapbox thì gắn khoá của bạn.</p></details>
+    <details><summary>Nhạc nền có bị bản quyền không?</summary><p>Nhạc của Kevin MacLeod, giấy phép CC BY 4.0, được dùng thương mại. Caption tự chèn câu ghi nguồn bắt buộc.</p></details>
+    <details><summary>Giọng đọc nghe có như người không?</summary><p>Giọng VieNeu chạy ngay trên máy, có hơn 20 giọng nam nữ. Muốn giọng của chính bạn thì đưa một đoạn ghi âm 3–8 giây.</p></details>
+  </div></section>
+
+  <section class="mua" id="mua"><div class="trang">
+    <div class="to-roi">
+      <h2>Mua trọn bộ</h2>
+      <div class="gia">[GIÁ]</div>
+      <ul class="gom">
+        <li>4 skill, lệnh cài đặt, tài liệu tiếng Việt</li>
+        <li>Giọng đọc tiếng Việt, 4 bản nhạc dùng thương mại, font Be Vietnam Pro</li>
+        <li>Cập nhật skill mới trong [số tháng]</li>
+      </ul>
+      <p class="nhap">Bản nháp: giá, thanh toán và chính sách hoàn tiền chưa chốt.</p>
+      <nav class="xe" aria-label="Mua và hỏi">
+        <a href="#"><span>Mua</span>Thanh toán</a>
+        <a href="#"><span>Hỏi</span>Nhắn Zalo</a>
+        <a href="#mau"><span>Xem</span>Video mẫu</a>
+      </nav>
+    </div>
+  </div></section>
+</main>
+
+<footer><div class="trang">
+  <p>Video mẫu dùng cảnh quay CC BY của các kênh BĐS Phan Thiết, Camera Nhà Đất và ảnh Wikimedia Commons (CC BY / CC0); SĐT trong video là số mẫu. Ảnh vệ tinh: Esri, Maxar, Earthstar Geographics. Đường đi: © OpenStreetMap.</p>
+</div></footer>
+<script>
+document.querySelectorAll(".loc button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll(".loc button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  const l = b.dataset.loai;
+  document.querySelectorAll(".day-vd .vd").forEach(v => { v.hidden = !(l === "tat" || v.dataset.loai === l); if (v.hidden) v.querySelector("video").pause(); });
+}));
+document.querySelectorAll(".phat").forEach(b => b.addEventListener("click", () => {
+  const vs = [...document.querySelectorAll(`video[data-nhom="${b.dataset.nhom}"]`)];
+  const dang = b.getAttribute("aria-pressed") === "true";
+  if (dang) { vs.forEach(v => v.pause()); b.setAttribute("aria-pressed", "false"); b.textContent = "Phát cả hai"; return; }
+  vs.forEach(v => { v.currentTime = 0; });
+  Promise.all(vs.map(v => v.play().catch(() => {}))).then(() => { b.setAttribute("aria-pressed", "true"); b.textContent = "Dừng"; });
+  vs[0].onended = () => { b.setAttribute("aria-pressed", "false"); b.textContent = "Phát cả hai"; };
+}));
+</script>
+<script>
+document.querySelectorAll("#chuong button").forEach(b => b.addEventListener("click", () => { const v = document.getElementById("hd"); v.currentTime = +b.dataset.t; v.play(); }));
+</script>
+</body>
+</html>
