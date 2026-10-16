@@ -558,7 +558,9 @@ document.querySelectorAll("#chuong button").forEach(b => b.addEventListener("cli
 </script>
 <script>
 (() => {   // giá + số suất mở bán lấy từ máy chủ; mua ở trang mua/ (thanh toán riêng)
-  const MAY_CHU = (new URLSearchParams(location.search).get("may_chu") || "https://landshot-ma.hieuwork280300.workers.dev").replace(/\/$/, "");
+  const msThu = new URLSearchParams(location.search).get("may_chu") || "";      // chỉ nhận máy chủ thử ở localhost (xem mua/index.html)
+  const laThu = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?\/?$/.test(msThu);
+  const MAY_CHU = (laThu ? msThu : "https://landshot-ma.hieuwork280300.workers.dev").replace(/\/$/, "");
   const vnd = n => Number(n).toLocaleString("vi-VN") + "đ";
   fetch(MAY_CHU + "/goi").then(r => r.json()).then(d => {
     const g = d.goi || {}, uu = d.uu_dai || {}, el = document.getElementById("uu-dai");
@@ -566,8 +568,7 @@ document.querySelectorAll("#chuong button").forEach(b => b.addEventListener("cli
       x.innerHTML = vnd(v.gia_hien) + (v.gia_goc && v.gia_hien < v.gia_goc ? `<small>giá thường ${vnd(v.gia_goc)}</small>` : ""); });
     if (uu.tong && uu.con > 0) { document.getElementById("con-suat").textContent = uu.con; el.hidden = false; }
   }).catch(() => {});
-  const ms = new URLSearchParams(location.search).get("may_chu");
-  if (ms) document.querySelectorAll('a[href^="mua/"]').forEach(a => { a.href += "&may_chu=" + encodeURIComponent(ms); });
+  if (laThu) document.querySelectorAll('a[href^="mua/"]').forEach(a => { a.href += "&may_chu=" + encodeURIComponent(msThu); });
 })();
 </script>
 <script>

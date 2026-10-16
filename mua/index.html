@@ -238,7 +238,10 @@ window.lsPx = (ev, p, o) => { try { if (window.fbq) fbq("track", ev, p || {}, o 
 <script>
 (() => {
   const thamSo = new URLSearchParams(location.search);
-  const MAY_CHU = (thamSo.get("may_chu") || "https://landshot-ma.hieuwork280300.workers.dev").replace(/\/$/, "");
+  // ?may_chu= CHỈ để thử trên máy (wrangler dev ở localhost). Địa chỉ khác bỏ qua: không thì ai cũng gửi được link landshot.io.vn
+  // trỏ sang máy chủ giả, hiện số tài khoản / mã QR của họ và lấy thông tin khách.
+  const msThu = thamSo.get("may_chu") || "";
+  const MAY_CHU = (/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?\/?$/.test(msThu) ? msThu : "https://landshot-ma.hieuwork280300.workers.dev").replace(/\/$/, "");
   const $ = id => document.getElementById(id);
   const vnd = n => Number(n).toLocaleString("vi-VN") + "đ";
   const GOM = {
@@ -293,7 +296,7 @@ window.lsPx = (ev, p, o) => { try { if (window.fbq) fbq("track", ev, p || {}, o 
     $("qr").src = d.qr; $("ck-nh").textContent = d.ngan_hang; $("ck-stk").textContent = d.so_tk; $("ck-ten").textContent = d.ten_tk;
     $("ck-tien").textContent = vnd(d.so_tien); $("ck-nd").textContent = d.noi_dung; $("ck-don").textContent = don.ma_don;
     document.querySelectorAll(".ck-email").forEach(el => { el.textContent = d.email || ""; });
-    if (d.link_tt) { $("link-tt").hidden = false; $("link-tt").href = d.link_tt; }
+    if (d.link_tt && /^https:\/\/pay\.payos\.vn\//.test(d.link_tt)) { $("link-tt").hidden = false; $("link-tt").href = d.link_tt; }   // chỉ trang thanh toán payOS
   }
   // đoạn tin nhắn khách dán cho trợ lý AI (Claude Code / Codex / Antigravity) để nó tự cài — cùng nội dung với thư mã kích hoạt
   const loiCai = ma => `Cài Landshot (bộ skill làm video bất động sản) giúp tôi trên máy này. Mã kích hoạt của tôi: ${ma}
