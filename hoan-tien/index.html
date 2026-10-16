@@ -22,6 +22,18 @@ ul, ol { margin-left: 22px; display: grid; gap: 6px; }
 .nho { color: var(--nhat); font-size: 15px; }
 a { color: inherit; }
 </style>
+<script>
+/* Meta Pixel — đo quảng cáo. LS_PX = ID tập dữ liệu trong Trình quản lý sự kiện (Business của tài khoản quảng cáo); để trống = tắt.
+   lsPx(sự_kiện, tham_số, {eventID}) gọi an toàn cả khi pixel tắt / bị chặn. */
+window.LS_PX = "1480462520817165";
+if (window.LS_PX) {
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;
+  s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq("init", window.LS_PX); fbq("track", "PageView");
+}
+window.lsPx = (ev, p, o) => { try { if (window.fbq) fbq("track", ev, p || {}, o || {}); } catch (e) {} };
+</script>
 </head>
 <body>
 <header><div><a href="../"><img src="../logo/ngang_trong.svg" alt="Landshot" height="46"></a></div></header>

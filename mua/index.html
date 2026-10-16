@@ -113,6 +113,18 @@ code { font-family: "IBM Plex Mono", monospace; font-size: .92em; background: #F
 }
 @media (prefers-reduced-motion: reduce) { .cho .nhip { animation: none; } }
 </style>
+<script>
+/* Meta Pixel — đo quảng cáo. LS_PX = ID tập dữ liệu trong Trình quản lý sự kiện (Business của tài khoản quảng cáo); để trống = tắt.
+   lsPx(sự_kiện, tham_số, {eventID}) gọi an toàn cả khi pixel tắt / bị chặn. */
+window.LS_PX = "1480462520817165";
+if (window.LS_PX) {
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;
+  s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq("init", window.LS_PX); fbq("track", "PageView");
+}
+window.lsPx = (ev, p, o) => { try { if (window.fbq) fbq("track", ev, p || {}, o || {}); } catch (e) {} };
+</script>
 </head>
 <body>
 <header class="thanh"><div class="trong">
@@ -294,6 +306,8 @@ code { font-family: "IBM Plex Mono", monospace; font-size: .92em; background: #F
 4. Nhắc tôi mở cuộc trò chuyện MỚI để dùng các skill bds-*.
 Đừng hỏi tôi thêm gì, trừ khi lệnh báo lỗi.`;
   function hienXong(x) {
+    const dem = "ls_px_mua_" + don.ma_don;                     // mỗi đơn chỉ đếm Purchase một lần (mở lại link trong thư không đếm lại)
+    try { if (!localStorage.getItem(dem)) { lsPx("Purchase", { value: x.so_tien, currency: "VND", content_name: x.ten_goi || "" }, { eventID: "mua_" + don.ma_don }); localStorage.setItem(dem, "1"); } } catch (e) {}
     form.hidden = true; $("dang-mo").hidden = true; $("ck").hidden = true; $("xong").hidden = false; buoc(4);
     [...$("buoc").children].forEach(li => { li.className = "xong"; });
     $("ma-kh").textContent = x.ma_kich_hoat; $("tai").href = x.tai; $("xong-don").textContent = don.ma_don;
@@ -333,6 +347,7 @@ code { font-family: "IBM Plex Mono", monospace; font-size: .92em; background: #F
       don = { ma_don: d.ma_don, khoa_xem: d.khoa_xem }; luu(don);
       history.replaceState(null, "", `?don=${d.ma_don}&k=${d.khoa_xem}`);
       $("bao").textContent = ""; hienCk(d); hen = setTimeout(hoi, 4000);
+      lsPx("AddPaymentInfo", { value: d.so_tien, currency: "VND", content_name: String(f.get("goi")) }, { eventID: "qr_" + d.ma_don });
     } catch (e) { $("bao").textContent = (e && e.message) || "Không kết nối được, thử lại sau ít phút."; }
     nut.disabled = false;
   });
@@ -353,6 +368,7 @@ code { font-family: "IBM Plex Mono", monospace; font-size: .92em; background: #F
   if (thamSo.get("don") && thamSo.get("k")) don = { ma_don: thamSo.get("don"), khoa_xem: thamSo.get("k") };
   else { try { don = JSON.parse(localStorage.getItem("ls_don") || "null"); } catch (e) { don = null; } }
   if (don) { form.hidden = true; $("dang-mo").hidden = false; $("bao").textContent = ""; luu(don); hoi(); }
+  else lsPx("InitiateCheckout", { value: (gia[goiDangChon()] || {}).gia_hien, currency: "VND", content_name: goiDangChon() });
 })();
 </script>
 </body>
