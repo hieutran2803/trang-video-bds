@@ -263,6 +263,10 @@ footer p { max-width: 70em; }
 .cap figure video { width: 100%; aspect-ratio: 9/16; display: block; border: 1.5px solid var(--muc); background: #2a1210; }
 .cap.ngang figure:first-child video { aspect-ratio: 16/9; }
 .cap figcaption { font-size: 15px; margin-top: 8px; color: var(--nau); font-weight: 600; }
+.dieu { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+.nghe { display: flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 600; color: var(--nau); }
+.nghe button { font: inherit; cursor: pointer; padding: 7px 14px; border-radius: 999px; border: 1.5px solid var(--muc); background: transparent; color: var(--muc); }
+.nghe button[aria-pressed="true"] { background: var(--muc); color: #FFF4F2; }
 .phat { grid-column: 1 / -1; justify-self: start; font: inherit; font-weight: 700; cursor: pointer; border: 0; padding: 13px 24px; border-radius: 4px;
   background: var(--muc); color: #FFF4F2; box-shadow: 4px 4px 0 var(--nau); }
 .phat[aria-pressed="true"] { background: var(--nau); }
@@ -318,9 +322,10 @@ footer p { max-width: 70em; }
     <h2>Video bán đất trước và sau khi dựng</h2>
     <p class="dan">Bên trái là cảnh quay gốc bằng điện thoại hoặc flycam, bên phải là video Landshot dựng ra. Bấm phát để xem hai bên chạy cùng lúc.</p>
     <div class="cap">
-      <figure><video data-nhom="a" src="video/tho_di_xem.mp4" data-poster="video/tho_di_xem.jpg" playsinline preload="none"></video><figcaption>Clip điện thoại môi giới tự quay</figcaption></figure>
+      <figure><video data-nhom="a" src="video/tho_di_xem.mp4" data-poster="video/tho_di_xem.jpg" playsinline preload="none" muted></video><figcaption>Clip điện thoại môi giới tự quay</figcaption></figure>
       <figure><video data-nhom="a" src="video/sau_di_xem.mp4" data-poster="video/sau_di_xem.jpg" playsinline preload="none"></video><figcaption>Sau khi dựng: câu mở đầu, giá, phụ đề, SĐT</figcaption></figure>
-      <button class="phat" data-nhom="a" type="button">Phát cả hai</button>
+      <div class="dieu"><button class="phat" data-nhom="a" type="button">Phát cả hai</button>
+        <div class="nghe" data-nhom="a" role="group" aria-label="Chọn tiếng"><span>Nghe tiếng:</span><button type="button" data-ben="0" aria-pressed="false">Clip gốc</button><button type="button" data-ben="1" aria-pressed="true">Bản dựng</button></div></div>
     </div>
     <div class="cap ngang">
       <figure><video data-nhom="b" src="video/tho_ve_ranh.mp4" data-poster="video/tho_ve_ranh.jpg" playsinline preload="none" muted></video><figcaption>Flycam thô</figcaption></figure>
@@ -521,6 +526,11 @@ document.querySelectorAll(".loc button").forEach(b => b.addEventListener("click"
   document.querySelectorAll(".loc button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
   const l = b.dataset.loai;
   document.querySelectorAll(".day-vd .vd").forEach(v => { v.hidden = !(l === "tat" || v.dataset.loai === l); if (v.hidden) v.querySelector("video").pause(); });
+}));
+document.querySelectorAll(".nghe button").forEach(b => b.addEventListener("click", () => {   // chỉ một bên có tiếng
+  const nhom = b.parentElement.dataset.nhom, ben = +b.dataset.ben;
+  b.parentElement.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  document.querySelectorAll(`video[data-nhom="${nhom}"]`).forEach((v, i) => { v.muted = i !== ben; });
 }));
 document.querySelectorAll(".phat").forEach(b => b.addEventListener("click", () => {
   const vs = [...document.querySelectorAll(`video[data-nhom="${b.dataset.nhom}"]`)];
