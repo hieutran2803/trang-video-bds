@@ -17,4 +17,4 @@ mkdir -p "$GOC"; rm -rf "$GOC/landshot"; unzip -q "$TMP/landshot.zip" -d "$GOC"
 echo "[3/3] Cai dat (lan dau 10-30 phut: tai Chromium, giong doc, model chep loi)..."
 BDS_MA="$MA" bash "$GOC/landshot/cai_dat/cai_mac.sh"
 echo
-echo "Landshot da cai xong. Mo cuoc tro chuyen MOI voi tro ly AI de no thay 4 skill bds-*."
+echo "Landshot da cai xong. Mo cuoc tro chuyen MOI voi tro ly AI de no thay cac skill bds-*."
